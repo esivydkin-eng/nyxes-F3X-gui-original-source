@@ -1,0 +1,188 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local flyConnection
+local currentVelocity = Vector3.zero
+local speed = 50
+local lerpSpeed = 0.05
+
+local vehicleWeld = nil
+local savedParts = {}
+
+local function getVehicleSeat()
+	for _, seat in pairs(workspace:GetDescendants()) do
+		if (seat:IsA("VehicleSeat") or seat:IsA("Seat")) and seat.Occupant == humanoid then
+			return seat
+		end
+	end
+	return nil
+end
+
+local function getVehicleModel(seat)
+	local model = seat
+	while model.Parent and not model.Parent:IsA("Workspace") do
+		model = model.Parent
+	end
+	return model
+end
+
+local function weldVehicle(seat)
+	local model = getVehicleModel(seat)
+	savedParts = {}
+
+	-- Убираем колизию и вес у всех частей
+	for _, part in pairs(model:GetDescendants()) do
+		if part:IsA("BasePart") then
+			savedParts[part] = {
+				massless = part.Massless,
+				canCollide = part.CanCollide,
+				anchored = part.Anchored,
+			}
+			part.Massless = true
+			part.CanCollide = false
+			part.Anchored = false
+		end
+	end
+
+	-- Привариваем модель к rootPart через WeldConstraint
+	local primaryPart = model.PrimaryPart or seat
+	vehicleWeld = Instance.new("WeldConstraint")
+	vehicleWeld.Part0 = rootPart
+	vehicleWeld.Part1 = primaryPart
+	vehicleWeld.Parent = rootPart
+end
+
+local function unweldVehicle()
+	if vehicleWeld then
+		vehicleWeld:Destroy()
+		vehicleWeld = nil
+	end
+	for part, data in pairs(savedParts) do
+		if part and part.Parent then
+			part.Massless = data.massless
+			part.CanCollide = data.canCollide
+			part.Anchored = data.anchored
+		end
+	end
+	savedParts = {}
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == Enum.KeyCode.E then
+		flying = not flying
+		if flying then
+			humanoid.PlatformStand = true
+			local seat = getVehicleSeat()
+			if seat then
+				weldVehicle(seat)
+			end
+			startFly()
+		else
+			unweldVehicle()
+			stopFly()
+		end
+	end
+end)
+
+local bodyVelocity
+local bodyGyro
+
+function startFly()
+	if rootPart:FindFirstChild("FlyVelocity") then rootPart:FindFirstChild("FlyVelocity"):Destroy() end
+	if rootPart:FindFirstChild("FlyGyro") then rootPart:FindFirstChild("FlyGyro"):Destroy() end
+
+	bodyVelocity = Instance.new("BodyVelocity")
+	bodyVelocity.Name = "FlyVelocity"
+	bodyVelocity.Velocity = Vector3.zero
+	bodyVelocity.MaxForce = Vector3.new(1e9, 1e9, 1e9)
+	bodyVelocity.Parent = rootPart
+
+	bodyGyro = Instance.new("BodyGyro")
+	bodyGyro.Name = "FlyGyro"
+	bodyGyro.MaxTorque = Vector3.new(1e9, 1e9, 1e9)
+	bodyGyro.D = 150
+	bodyGyro.P = 1000
+	bodyGyro.CFrame = rootPart.CFrame
+	bodyGyro.Parent = rootPart
+
+	flyConnection = RunService.Heartbeat:Connect(function()
+		if not flying then return end
+
+		local camera = workspace.CurrentCamera
+		local targetDir = Vector3.zero
+
+		if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+			targetDir = targetDir + camera.CFrame.LookVector
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+			targetDir = targetDir - camera.CFrame.LookVector
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+			targetDir = targetDir - camera.CFrame.RightVector
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+			targetDir = targetDir + camera.CFrame.RightVector
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.R) then
+			targetDir = targetDir + Vector3.new(0, 1, 0)
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.Q) then
+			targetDir = targetDir - Vector3.new(0, 1, 0)
+		end
+
+		local targetVelocity = if targetDir.Magnitude > 0 then targetDir.Unit * speed else Vector3.zero
+		currentVelocity = currentVelocity:Lerp(targetVelocity, lerpSpeed)
+		bodyVelocity.Velocity = currentVelocity
+
+		-- Поворот персонажа по камере
+		local lookVec = camera.CFrame.LookVector
+		local pitchFromCam = math.asin(math.clamp(lookVec.Y, -1, 1))
+		local camYaw = math.atan2(-lookVec.X, -lookVec.Z)
+
+		local extraTilt = 0
+		local rollAngle = 0
+
+		if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+			extraTilt = -math.rad(25)
+		elseif UserInputService:IsKeyDown(Enum.KeyCode.S) then
+			extraTilt = math.rad(25)
+		end
+		if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+			rollAngle = math.rad(20)
+		elseif UserInputService:IsKeyDown(Enum.KeyCode.D) then
+			rollAngle = -math.rad(20)
+		end
+
+		local targetCFrame = CFrame.new(rootPart.Position)
+			* CFrame.Angles(0, camYaw, 0)
+			* CFrame.Angles(pitchFromCam + extraTilt, 0, rollAngle)
+
+		bodyGyro.CFrame = bodyGyro.CFrame:Lerp(targetCFrame, 0.1)
+	end)
+end
+
+function stopFly()
+	if flyConnection then flyConnection:Disconnect() flyConnection = nil end
+	if bodyVelocity then bodyVelocity:Destroy() bodyVelocity = nil end
+	if bodyGyro then bodyGyro:Destroy() bodyGyro = nil end
+	currentVelocity = Vector3.zero
+	humanoid.PlatformStand = false
+end
+
+player.CharacterAdded:Connect(function(newChar)
+	character = newChar
+	humanoid = newChar:WaitForChild("Humanoid")
+	rootPart = newChar:WaitForChild("HumanoidRootPart")
+	flying = false
+	currentVelocity = Vector3.zero
+	savedParts = {}
+	vehicleWeld = nil
+end)
