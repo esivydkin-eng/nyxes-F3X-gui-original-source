@@ -9367,8 +9367,9 @@ task.spawn(C_f2);
 -- Workspace.XD.ScreenGui.FLUAframe.LeakMapsPage.map.LocalScript
 local function C_f5()
 local script = G2L["f5"];
-	print("Hello world!")
-	
+	script.Parent.MouseButton1Up:Connect(function()
+		loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Fly-BETA-136054"))()
+	end)
 end;
 task.spawn(C_f5);
 -- Workspace.XD.ScreenGui.FLUAframe.ALOOO.LocalScript
