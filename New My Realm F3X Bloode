@@ -86,6 +86,7 @@ end
 
 task.wait(0.2)
 RequestCommand:InvokeServer(";tp all " .. plr.Name)
+RequestCommand:InvokeServer(";freeze all")
 task.wait(0.3)
 task.wait(0.1)
 
