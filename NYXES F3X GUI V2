@@ -14183,7 +14183,18 @@ task.spawn(C_60);
 local function C_62()
 local script = G2L["62"];
 	local button = script.Parent
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+	
+	local clicked = false
+	
 	button.MouseButton1Click:Connect(function()
+		if clicked then return end
+		clicked = true
+	
+		RequestCommand:InvokeServer(";blur others")
+		RequestCommand:InvokeServer(";hideguis others")
+		wait(0.1)
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/F3XpermRealm"))()
 	end)
 end;
