@@ -10,10 +10,45 @@ local function saveOriginalData()
     for _, name in pairs(requiredParts) do
         local part = Workspace:FindFirstChild(name)
         if part and part:IsA("BasePart") then
+            local textures = {}
+            local decals = {}
+            
+            for _, child in pairs(part:GetChildren()) do
+                if child:IsA("Texture") then
+                    textures[child.Face] = {
+                        Texture = child.Texture,
+                        Transparency = child.Transparency,
+                        Color3 = child.Color3,
+                        Offset = child.Offset,
+                        StudsPerTileU = child.StudsPerTileU,
+                        StudsPerTileV = child.StudsPerTileV
+                    }
+                elseif child:IsA("Decal") and name == "SpawnLocation" then
+                    decals[child.Face] = {
+                        Texture = child.Texture,
+                        Transparency = child.Transparency,
+                        Color3 = child.Color3,
+                        ZIndex = child.ZIndex
+                    }
+                elseif child:IsA("Decal") then
+                    decals[child.Face] = {
+                        Texture = child.Texture,
+                        Transparency = child.Transparency,
+                        Color3 = child.Color3,
+                        ZIndex = child.ZIndex
+                    }
+                end
+            end
+            
             originalData[name] = {
                 position = part.Position,
                 size = part.Size,
-                cframe = part.CFrame
+                cframe = part.CFrame,
+                color = part.Color,
+                material = part.Material,
+                transparency = part.Transparency,
+                textures = textures,
+                decals = decals
             }
         end
     end
@@ -271,17 +306,108 @@ if #missed > 0 then
  end
 end
 RequestCommand:InvokeServer(";res all")
-task.wait(0.1)
+task.wait(0.08)
 RequestCommand:InvokeServer(";r6 all")
 RequestCommand:InvokeServer(";notice all realm-OK loaded")
 RequestCommand:InvokeServer(";disco")
 RequestCommand:InvokeServer(";fog 1")
 RequestCommand:InvokeServer(";blur all")
-    task.wait(0.05)
+    task.wait(0.4)
     saveOriginalData()
     mapLoaded = true
-    RequestCommand:InvokeServer(";shint realm by nyxes")
+    task.wait(0.05)
+        RequestCommand:InvokeServer(";shint realm by nyxes")
     RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
+end
+
+local function checkSpawnDecal()
+    local spawn = Workspace:FindFirstChild("SpawnLocation")
+    if not spawn or not spawn:IsA("BasePart") then
+        loadMap()
+        return false
+    end
+    
+    local decals = {}
+    for _, child in pairs(spawn:GetChildren()) do
+        if child:IsA("Decal") and child.Face == Enum.NormalId.Top then
+            table.insert(decals, child)
+        end
+    end
+    
+    if #decals ~= 1 then
+        loadMap()
+        return false
+    end
+    
+    local decal = decals[1]
+    if decal.Texture ~= "rbxasset://textures/SpawnLocation.png" then
+        loadMap()
+        return false
+    end
+    
+    return true
+end
+
+local function checkTexturesAndDecals(part, name)
+    if name == "SpawnLocation" then
+        return checkSpawnDecal()
+    end
+    
+    local saved = originalData[name]
+    if not saved then return false end
+    
+    local currentTextures = {}
+    local currentDecals = {}
+    
+    for _, child in pairs(part:GetChildren()) do
+        if child:IsA("Texture") then
+            local key = tostring(child.Face)
+            currentTextures[key] = {
+                Texture = child.Texture,
+                Transparency = child.Transparency,
+                Color3 = child.Color3,
+                Offset = child.Offset,
+                StudsPerTileU = child.StudsPerTileU,
+                StudsPerTileV = child.StudsPerTileV
+            }
+        elseif child:IsA("Decal") then
+            local key = tostring(child.Face)
+            currentDecals[key] = {
+                Texture = child.Texture,
+                Transparency = child.Transparency,
+                Color3 = child.Color3,
+                ZIndex = child.ZIndex
+            }
+        end
+    end
+    
+    local function compareTables(t1, t2)
+        if not t1 and not t2 then return true end
+        if not t1 or not t2 then return false end
+        
+        for k, v in pairs(t1) do
+            if not t2[k] then return false end
+            for prop, val in pairs(v) do
+                if t2[k][prop] ~= val then return false end
+            end
+        end
+        
+        for k, v in pairs(t2) do
+            if not t1[k] then return false end
+        end
+        
+        return true
+    end
+    
+    if not compareTables(saved.textures, currentTextures) then
+        return false
+    end
+    
+    if not compareTables(saved.decals, currentDecals) then
+        return false
+    end
+    
+    return true
 end
 
 local function checkParts()
@@ -303,6 +429,26 @@ local function checkParts()
             loadMap()
             return
         end
+        
+        if current.Color ~= data.color then
+            loadMap()
+            return
+        end
+        
+        if current.Material ~= data.material then
+            loadMap()
+            return
+        end
+        
+        if current.Transparency ~= data.transparency then
+            loadMap()
+            return
+        end
+        
+        if not checkTexturesAndDecals(current, name) then
+            loadMap()
+            return
+        end
     end
 end
 
@@ -318,14 +464,14 @@ local function checkMusic()
     
     if sound.Playing == false then
         sound:Stop()
-        task.wait(0.01)
+        task.wait(0.3)
         RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
         return
     end
     
     if sound.SoundId ~= "rbxassetid://90256750115455" then
         sound:Stop()
-        task.wait(0.1)
+        task.wait(0.3)
         RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
         return
     end
