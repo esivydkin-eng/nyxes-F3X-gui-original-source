@@ -6,6 +6,7 @@ local requiredParts = {"LOLIMRS", "LOLIMPART1", "LOLIMPART2", "LOLIMPART3", "LOL
 local originalData = {}
 local mapLoaded = false
 
+      RequestCommand:InvokeServer(";btools me")
 local function saveOriginalData()
     for _, name in pairs(requiredParts) do
         local part = Workspace:FindFirstChild(name)
