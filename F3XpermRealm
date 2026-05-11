@@ -1,0 +1,330 @@
+--this script made by nyxes
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+
+local requiredParts = {"Basetplater", "LOLIMPART1", "LOLIMPART2", "LOLIMPART3", "LOLIMPART4", "LOLIMPART5", "SpawnLocation"}
+local originalParts = {}
+
+local function saveOriginalParts()
+    for _, name in pairs(requiredParts) do
+        local part = Workspace:FindFirstChild(name)
+        if part then
+            originalParts[name] = part
+        end
+    end
+end
+RequestCommand:InvokeServer(";btools me")
+local function loadMap()
+    RequestCommand:InvokeServer(";loadmap")
+    task.wait(0.01)
+    --this script made by nyxes no ai slops, If you see this, then you are a n###a.
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
+
+RequestCommand:InvokeServer(";btools me")
+task.wait(0.2)
+RequestCommand:InvokeServer(";punish all")
+RequestCommand:InvokeServer(";music 0")
+task.wait(0.2)
+RequestCommand:InvokeServer(";shint realm loading...")
+local player = game.Players.LocalPlayer
+local backpack = player.Backpack
+local character = player.Character
+
+local function getF3X()
+ for _, v in ipairs(backpack:GetChildren()) do
+ if v:FindFirstChild("SyncAPI") then return v end
+ end
+ for _, v in ipairs(character:GetChildren()) do
+ if v:FindFirstChild("SyncAPI") then return v end
+ end
+ return nil
+end
+
+local f3x = getF3X()
+if not f3x then
+ warn("F3X not found")
+ return
+end
+
+local syncapi = f3x.SyncAPI
+local endpoint = syncapi.ServerEndpoint
+
+for _, v in ipairs(workspace:GetDescendants()) do
+ if v:IsA("BasePart") and not v:IsA("Terrain") then
+ task.spawn(function()
+ pcall(function()
+ endpoint:InvokeServer("Remove", {v})
+ end)
+ end)
+ end
+end
+task.wait(1)
+
+local function syncAnchor(ep, part, anchored)
+ ep:InvokeServer("SyncAnchor", {{Part = part, Anchored = anchored}})
+end
+
+local function batchResize(ep, tbl) if #tbl>0 then ep:InvokeServer("SyncResize", tbl) end end
+local function batchMaterial(ep, tbl) if #tbl>0 then ep:InvokeServer("SyncMaterial", tbl) end end
+local function batchColor(ep, tbl) if #tbl>0 then ep:InvokeServer("SyncColor", tbl) end end
+local function batchCollision(ep, tbl) if #tbl>0 then ep:InvokeServer("SyncCollision", tbl) end end
+
+local function createMesh(ep, part) ep:InvokeServer("CreateMeshes", {{Part = part}}) end
+local function syncMeshType(ep, part, t) ep:InvokeServer("SyncMesh", {{Part = part, MeshType = t}}) end
+local function syncMeshScale(ep, part, s) ep:InvokeServer("SyncMesh", {{Part = part, Scale = s}}) end
+local function syncMeshOffset(ep, part, o) ep:InvokeServer("SyncMesh", {{Part = part, Offset = o}}) end
+local function syncMeshId(ep, part, id) ep:InvokeServer("SyncMesh", {{Part = part, MeshId = id}}) end
+local function syncMeshTexture(ep, part, tex) ep:InvokeServer("SyncMesh", {{Part = part, TextureId = tex}}) end
+local function syncMeshVertexColor(ep, part, col) ep:InvokeServer("SyncMesh", {{Part = part, VertexColor = col}}) end
+
+local function createDecal(ep, part, face) ep:InvokeServer("CreateTextures", {{Part = part, Face = face, TextureType = "Decal"}}) end
+local function setDecalTexture(ep, part, tex, face) ep:InvokeServer("SyncTexture", {{Part = part, Face = face, TextureType = "Decal", Texture = tex}}) end
+local function setDecalTransparency(ep, part, trans, face) ep:InvokeServer("SyncTexture", {{Part = part, Face = face, TextureType = "Decal", Transparency = trans}}) end
+
+local function createTexture(ep, part, face) ep:InvokeServer("CreateTextures", {{Part = part, Face = face, TextureType = "Texture"}}) end
+local function setTextureId(ep, part, tex, face) ep:InvokeServer("SyncTexture", {{Part = part, Face = face, TextureType = "Texture", Texture = tex}}) end
+local function setTextureTransparency(ep, part, trans, face) ep:InvokeServer("SyncTexture", {{Part = part, Face = face, TextureType = "Texture", Transparency = trans}}) end
+
+local function createLight(ep, part, lightType)
+ ep:InvokeServer("CreateLights", {{Part = part, LightType = lightType}})
+end
+local function syncLight(ep, part, lightType, brightness, range, color, shadows, face, angle)
+ local params = {Part = part, LightType = lightType}
+ if brightness ~= nil then params.Brightness = brightness end
+ if range ~= nil then params.Range = range end
+ if color then params.Color = color end
+ if shadows ~= nil then params.Shadows = shadows end
+ if face and face ~= "nil" then params.Face = face end
+ if angle ~= nil then params.Angle = angle end
+ ep:InvokeServer("SyncLighting", {params})
+end
+
+local function createGroup(ep, groupType, parent, items) return ep:InvokeServer("CreateGroup", groupType, parent, items) end
+local function setName(ep, obj, name) ep:InvokeServer("SetName", {obj}, name) end
+local function setLocked(ep, part, lock) ep:InvokeServer("SetLocked", {part}, lock) end
+
+local spawnMeta = {}
+spawnMeta[1] = {teamColor = BrickColor.new("Medium stone grey"), neutral = true, duration = 10, allowTeamChangeOnTouch = false}
+
+local seatMeta = {}
+
+local P = {}
+
+local partData = {
+ [1] = {anchored = true},
+ [2] = {anchored = true},
+ [3] = {anchored = true},
+ [4] = {anchored = true},
+ [5] = {anchored = true},
+ [6] = {anchored = true},
+ [7] = {anchored = true},
+}
+
+local partDefs = {
+
+ [1] = {shape="Spawn", cframe=CFrame.new(-505,-25.635000228881836,371,1,0,0,0,1,0,0,0,1)},
+ [2] = {shape="Normal", cframe=CFrame.new(-500,-27.635000228881836,375.5,1,0,0,0,1,0,0,0,1)},
+ [3] = {shape="Normal", cframe=CFrame.new(-217,53.36499786376953,375.5,1,0,0,0,1,0,0,0,1)},
+ [4] = {shape="Normal", cframe=CFrame.new(-783,53.364990234375,375.5,1,0,0,0,1,0,0,0,1)},
+ [5] = {shape="Normal", cframe=CFrame.new(-500,53.36499786376953,658.5,0,0,-1,0,1,0,1,0,0)},
+ [6] = {shape="Normal", cframe=CFrame.new(-500,53.364990234375,91.5,0,0,-1,0,1,0,1,0,0)},
+ [7] = {shape="Normal", cframe=CFrame.new(-500,137.364990234375,375,0,0,-1,0,1,0,1,0,0)},
+ }
+
+local pending = 0
+for id, def in pairs(partDefs) do
+ pending = pending + 1
+ task.spawn(function()
+ local success, part = pcall(function()
+ return endpoint:InvokeServer("CreatePart", def.shape, def.cframe, workspace)
+ end)
+ if success and part then
+ P[id] = part
+ syncAnchor(endpoint, part, true)
+ end
+ pending = pending - 1
+ end)
+end
+while pending > 0 do
+ task.wait()
+end
+
+local resizeBatch = {}
+if P[1] then resizeBatch[#resizeBatch+1] = {Part = P[1], CFrame = P[1].CFrame, Size = Vector3.new(12,1,12)} end
+if P[2] then resizeBatch[#resizeBatch+1] = {Part = P[2], CFrame = P[2].CFrame, Size = Vector3.new(567,1,567)} end
+if P[3] then resizeBatch[#resizeBatch+1] = {Part = P[3], CFrame = P[3].CFrame, Size = Vector3.new(1,161,567)} end
+if P[4] then resizeBatch[#resizeBatch+1] = {Part = P[4], CFrame = P[4].CFrame, Size = Vector3.new(1,161,567)} end
+if P[5] then resizeBatch[#resizeBatch+1] = {Part = P[5], CFrame = P[5].CFrame, Size = Vector3.new(1,161,565)} end
+if P[6] then resizeBatch[#resizeBatch+1] = {Part = P[6], CFrame = P[6].CFrame, Size = Vector3.new(1,161,565)} end
+if P[7] then resizeBatch[#resizeBatch+1] = {Part = P[7], CFrame = P[7].CFrame, Size = Vector3.new(568,7,565)} end
+batchResize(endpoint, resizeBatch)
+local materialBatch = {}
+if P[1] then materialBatch[#materialBatch+1] = {Part = P[1], Material = Enum.Material.Plastic} end
+if P[2] then materialBatch[#materialBatch+1] = {Part = P[2], Material = Enum.Material.Sand} end
+if P[3] then materialBatch[#materialBatch+1] = {Part = P[3], Material = Enum.Material.Plastic} end
+if P[4] then materialBatch[#materialBatch+1] = {Part = P[4], Material = Enum.Material.Plastic} end
+if P[5] then materialBatch[#materialBatch+1] = {Part = P[5], Material = Enum.Material.Plastic} end
+if P[6] then materialBatch[#materialBatch+1] = {Part = P[6], Material = Enum.Material.Plastic} end
+if P[7] then materialBatch[#materialBatch+1] = {Part = P[7], Material = Enum.Material.Plastic} end
+batchMaterial(endpoint, materialBatch)
+local transparencyBatch = {}
+if P[1] then transparencyBatch[#transparencyBatch+1] = {Part = P[1], Transparency = 1} end
+batchMaterial(endpoint, transparencyBatch)
+local reflectanceBatch = {}
+batchMaterial(endpoint, reflectanceBatch)
+local colorBatch = {}
+if P[1] then colorBatch[#colorBatch+1] = {Part = P[1], Color = Color3.new(0.6392157077789307,0.6352941393852234,0.6470588445663452), UnionColoring = false} end
+if P[2] then colorBatch[#colorBatch+1] = {Part = P[2], Color = Color3.new(0.6470588445663452,0.5843137502670288,0.33725491166114807), UnionColoring = false} end
+if P[3] then colorBatch[#colorBatch+1] = {Part = P[3], Color = Color3.new(0.10588235408067703,0.16470588743686676,0.2078431397676468), UnionColoring = false} end
+if P[4] then colorBatch[#colorBatch+1] = {Part = P[4], Color = Color3.new(0.10588235408067703,0.16470588743686676,0.2078431397676468), UnionColoring = false} end
+if P[5] then colorBatch[#colorBatch+1] = {Part = P[5], Color = Color3.new(0.10588235408067703,0.16470588743686676,0.2078431397676468), UnionColoring = false} end
+if P[6] then colorBatch[#colorBatch+1] = {Part = P[6], Color = Color3.new(0.10588235408067703,0.16470588743686676,0.2078431397676468), UnionColoring = false} end
+if P[7] then colorBatch[#colorBatch+1] = {Part = P[7], Color = Color3.new(0.10588235408067703,0.16470588743686676,0.2078431397676468), UnionColoring = false} end
+batchColor(endpoint, colorBatch)
+local collisionBatch = {}
+if P[1] then collisionBatch[#collisionBatch+1] = {Part = P[1], CanCollide = true} end
+if P[2] then collisionBatch[#collisionBatch+1] = {Part = P[2], CanCollide = true} end
+if P[3] then collisionBatch[#collisionBatch+1] = {Part = P[3], CanCollide = true} end
+if P[4] then collisionBatch[#collisionBatch+1] = {Part = P[4], CanCollide = true} end
+if P[5] then collisionBatch[#collisionBatch+1] = {Part = P[5], CanCollide = true} end
+if P[6] then collisionBatch[#collisionBatch+1] = {Part = P[6], CanCollide = true} end
+if P[7] then collisionBatch[#collisionBatch+1] = {Part = P[7], CanCollide = true} end
+batchCollision(endpoint, collisionBatch)
+local lockTasks, nameTasks = {}, {}
+
+if P[1] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[1], "SpawnLocation") end) end
+if P[2] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[2], "Basetplater") end) end
+if P[3] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[3], "LOLIMPART1") end) end
+if P[4] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[4], "LOLIMPART2") end) end
+if P[5] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[5], "LOLIMPART4") end) end
+if P[6] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[6], "LOLIMPART3") end) end
+if P[7] then nameTasks[#nameTasks+1] = task.spawn(function() setName(endpoint, P[7], "LOLIMPART5") end) end
+task.wait(0.2)
+for id, meta in pairs(spawnMeta) do
+ if P[id] then
+ task.spawn(function()
+ pcall(function()
+ endpoint:InvokeServer("SyncProperty", {{Part = P[id], Property = "Neutral", Value = meta.neutral}})
+ endpoint:InvokeServer("SyncProperty", {{Part = P[id], Property = "Duration", Value = meta.duration}})
+ endpoint:InvokeServer("SyncProperty", {{Part = P[id], Property = "AllowTeamChangeOnTouch", Value = meta.allowTeamChangeOnTouch}})
+ endpoint:InvokeServer("SyncProperty", {{Part = P[id], Property = "TeamColor", Value = meta.teamColor}})
+ end)
+ end)
+ end
+end
+
+for id, meta in pairs(seatMeta) do
+ if P[id] then
+ task.spawn(function()
+ pcall(function()
+ endpoint:InvokeServer("SyncProperty", {{Part = P[id], Property = "Disabled", Value = meta.disabled}})
+ local seatAsset = game.ReplicatedStorage:FindFirstChild("HDAdminHDClient")
+ if seatAsset then
+ seatAsset = seatAsset:FindFirstChild("Assets")
+ if seatAsset then seatAsset = seatAsset:FindFirstChild("Toilet") end
+ if seatAsset then seatAsset = seatAsset:FindFirstChild("Seat") end
+ if seatAsset then
+ local clone = seatAsset:Clone()
+ clone.CFrame = P[id].CFrame
+ clone.Parent = workspace
+ end
+ end
+ end)
+ end)
+ end
+end
+
+if P[1] then
+ task.spawn(function()
+ createDecal(endpoint, P[1], Enum.NormalId.Top)
+ setDecalTexture(endpoint, P[1], "rbxasset://textures/SpawnLocation.png", Enum.NormalId.Top)
+ end)
+end
+task.wait(0.3)
+task.wait(0.3)
+local G = {}
+task.wait(0.3)
+task.wait(0.5)
+local missed = {}
+for id, part in pairs(P) do
+ if part and not part.Anchored then
+ missed[#missed+1] = {Part = part, Anchored = true}
+ end
+end
+if #missed > 0 then
+ for i = 1, #missed, 100 do
+ local chunk = {}
+ for j = i, math.min(i+99, #missed) do
+ chunk[#chunk+1] = missed[j]
+ end
+ endpoint:InvokeServer("SyncAnchor", chunk)
+ task.wait()
+ end
+end
+RequestCommand:InvokeServer(";res all")
+task.wait(0.2)
+RequestCommand:InvokeServer(";r6 all")
+    saveOriginalParts()
+end
+
+local function checkParts()
+    for name, original in pairs(originalParts) do
+        local current = Workspace:FindFirstChild(name)
+        if not current or current ~= original then
+            loadMap()
+            return
+        end
+    end
+    
+    for _, obj in pairs(Workspace:GetChildren()) do
+        if obj:IsA("BasePart") and not obj:IsA("Terrain") then
+            local isRequired = false
+            for _, req in pairs(requiredParts) do
+                if obj.Name == req then
+                    isRequired = true
+                    break
+                end
+            end
+            if not isRequired and originalParts[obj.Name] == nil then
+                if obj ~= originalParts[obj.Name] then
+                    loadMap()
+                    return
+                end
+            end
+        end
+    end
+end
+
+local function checkMusic()
+    local sound = Workspace:FindFirstChild("HDAdminSound")
+    if sound and sound:IsA("Sound") and sound.SoundId ~= "rbxassetid://90256750115455" then
+        RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
+    end
+end
+
+saveOriginalParts()
+
+RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
+RequestCommand:InvokeServer(";hideguis others")
+RequestCommand:InvokeServer(";disco")
+RequestCommand:InvokeServer(";time 00")
+RequestCommand:InvokeServer(";fog 1")
+RequestCommand:InvokeServer(";warp all")
+RequestCommand:InvokeServer(";blur all")
+RequestCommand:InvokeServer(";shint Realm OK - Loaded")
+task.spawn(function()
+    while true do
+        RequestCommand:InvokeServer(";warp all")
+        task.wait(5)
+    end
+end)
+
+task.spawn(function()
+    while true do
+        checkMusic()
+        checkParts()
+        task.wait(1)
+    end
+end)
