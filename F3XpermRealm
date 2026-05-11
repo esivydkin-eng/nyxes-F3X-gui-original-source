@@ -316,8 +316,8 @@ RequestCommand:InvokeServer(";blur all")
     saveOriginalData()
     mapLoaded = true
     task.wait(0.05)
-        RequestCommand:InvokeServer(";shint realm by nyxes")
     RequestCommand:InvokeServer(";music 90256750115455 , ;pitch 1.1 , ;volume 10")
+RequestCommand:InvokeServer(";shint realm by nyxes")
 end
 
 local function checkSpawnDecal()
