@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 468 | Scripts: 181 | Modules: 0 | Tags: 0
+-- Instances: 469 | Scripts: 182 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.ScreenGui
@@ -5402,6 +5402,11 @@ G2L["1d3"]["Position"] = UDim2.new(0.79853, 0, 0.18029, 0);
 
 -- StarterGui.ScreenGui.FLUAframe.THEME.LocalScript
 G2L["1d4"] = Instance.new("LocalScript", G2L["1d3"]);
+
+
+
+-- StarterGui.ScreenGui.FLUAframe.LocalScript
+G2L["1d5"] = Instance.new("LocalScript", G2L["2"]);
 
 
 
@@ -25704,5 +25709,13 @@ local script = G2L["1d4"];
 	end)
 end;
 task.spawn(C_1d4);
+-- StarterGui.ScreenGui.FLUAframe.LocalScript
+local function C_1d5()
+local script = G2L["1d5"];
+	wait("1.4")
+	print("anti crash/hide v1 loading...")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1"))()
+end;
+task.spawn(C_1d5);
 
 return G2L["1"], require;
