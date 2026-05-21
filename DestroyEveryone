@@ -1,8 +1,10 @@
-local Players=game:GetService("Players")local Workspace=game:GetService("Workspace")local player=Players.LocalPlayer
-local function f()for _,v in pairs(player.Backpack:GetChildren())do if v:IsA("Tool")and v:FindFirstChild("SyncAPI")then return v end end
-if player.Character then for _,v in pairs(player.Character:GetChildren())do if v:IsA("Tool")and v:FindFirstChild("SyncAPI")then return v end end end end
-local t=f()if not t then return end local r=t.SyncAPI.ServerEndpoint local function c(...)return r:InvokeServer(...)end
-for _,v in pairs(Workspace:GetDescendants())do if v:IsA("BasePart")then pcall(function()v.Locked=false end)end end
-for _,v in pairs(Workspace:GetChildren())do pcall(function()c("Remove",{v})end)task.wait(0.001)end
-for _,v in pairs(Players:GetPlayers())do if v.Character then pcall(function()c("Remove",{v.Character})end)task.wait(0.001)end end
-for _,v in pairs(Workspace:GetDescendants())do pcall(function()c("Remove",{v})end)task.wait(0.001)end
+game:GetService("ReplicatedStorage"):WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent:InvokeServer(";btools me , ;punish all")
+task.wait(0.4)
+local P, W = game:GetService("Players"), game:GetService("Workspace")
+local lp = P.LocalPlayer
+local tool = lp.Backpack:FindFirstChild("Building Tools") or (lp.Character and lp.Character:FindFirstChild("Building Tools")) or lp.Backpack:FindFirstChildOfClass("Tool") or (lp.Character and lp.Character:FindFirstChildOfClass("Tool"))
+if not tool or not tool:FindFirstChild("SyncAPI") then return end
+local r, t = tool.SyncAPI.ServerEndpoint, {}
+for _, v in ipairs(W:GetDescendants()) do if v:IsA("BasePart") and not v:IsA("Terrain") and v ~= tool and (not lp.Character or not v:IsDescendantOf(lp.Character)) then table.insert(t, v) end end
+for _, p in ipairs(P:GetPlayers()) do if p ~= lp and p.Character then table.insert(t, p.Character) end end
+for i = 1, #t, 278 do local b = {unpack(t, i, math.min(i + 278, #t))} task.spawn(function() pcall(function() r:InvokeServer("SetLocked", b, false) r:InvokeServer("Remove", b) end) end) end
