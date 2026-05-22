@@ -6,7 +6,6 @@
 88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
-
 -- Instances: 500 | Scripts: 198 | Modules: 0 | Tags: 0
 local G2L = {};
 
@@ -26388,17 +26387,16 @@ local script = G2L["1f2"];
 	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 	
 	while not PlayerGui:FindFirstChild("HDAdminInterface") do
-		task.wait(0.1)
+		task.wait("0.1")
 	end
 	
 	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
 	RequestCommand:InvokeServer(";sh loading...")
-	task.wait(1.4)
+	wait("0.3")
 	
 	print("anti crash/hide v1 loading...")
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1"))()
-	task.wait(0.15)
-	
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.1"))()
+	wait("3")
 	print("CustomNotification loading...")
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/CustomNotificator"))()
 end;
