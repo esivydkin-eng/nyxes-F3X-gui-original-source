@@ -35073,7 +35073,11 @@ local script = G2L["1ee"];
 	local button = script.Parent
 	
 	button.MouseButton1Click:Connect(function()
-		game:GetService("GuiService"):OpenDevConsole()
+		pcall(function()
+			local VirtualInputManager = game:GetService("VirtualInputManager")
+			VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F9, false, game)
+			VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F9, false, game)
+		end)
 	end)
 end;
 task.spawn(C_1ee);
