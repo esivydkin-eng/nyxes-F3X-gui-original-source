@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 492 | Scripts: 193 | Modules: 0 | Tags: 0
+-- Instances: 494 | Scripts: 194 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.NyxesGui
@@ -5540,7 +5540,9 @@ G2L["1e3"]["Name"] = [[Loaders]];
 
 -- StarterGui.NyxesGui.FLUAframe.Loaders.Loader
 G2L["1e4"] = Instance.new("LocalScript", G2L["1e3"]);
+G2L["1e4"]["Enabled"] = false;
 G2L["1e4"]["Name"] = [[Loader]];
+G2L["1e4"]["Disabled"] = true;
 
 
 -- StarterGui.NyxesGui.FLUAframe.THEME
@@ -5624,6 +5626,27 @@ G2L["1eb"]["Position"] = UDim2.new(0.3956, 0, 0.20126, 0);
 
 -- StarterGui.NyxesGui.FLUAframe.god.LocalScript
 G2L["1ec"] = Instance.new("LocalScript", G2L["1eb"]);
+
+
+
+-- StarterGui.NyxesGui.FLUAframe.TP ALL
+G2L["1ed"] = Instance.new("TextButton", G2L["2"]);
+G2L["1ed"]["TextWrapped"] = true;
+G2L["1ed"]["BorderSizePixel"] = 2;
+G2L["1ed"]["TextSize"] = 14;
+G2L["1ed"]["TextScaled"] = true;
+G2L["1ed"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
+G2L["1ed"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1ed"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1ed"]["Size"] = UDim2.new(0.08974, 0, 0.06709, 0);
+G2L["1ed"]["BorderColor3"] = Color3.fromRGB(0, 0, 255);
+G2L["1ed"]["Text"] = [[F9 OPEN DEBUG]];
+G2L["1ed"]["Name"] = [[TP ALL]];
+G2L["1ed"]["Position"] = UDim2.new(0.49451, 0, 0.20126, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.TP ALL.LocalScript
+G2L["1ee"] = Instance.new("LocalScript", G2L["1ed"]);
 
 
 
@@ -24152,18 +24175,22 @@ local script = G2L["f5"];
 		task.wait(2.2)
 	end
 	
-	local function isValid(id)
-		local soundService = game:GetService("SoundService")
-		local found = false
-		for _, s in pairs(soundService:GetDescendants()) do
+	local function isSoundValid(id)
+		local targetSound = nil
+	
+		for _, s in pairs(workspace:GetDescendants()) do
 			if s:IsA("Sound") and s.SoundId:find(tostring(id)) then
-				if s.TimeLength > 0 and s.PlaybackLoudness > 0 then
-					found = true
-					break
-				end
+				targetSound = s
+				break
 			end
 		end
-		return found
+	
+		if not targetSound then return false end
+	
+		local pos1 = targetSound.TimePosition
+		task.wait(0.5) 
+		local pos2 = targetSound.TimePosition
+		return pos2 > pos1
 	end
 	
 	BOOT.MouseButton1Click:Connect(function()
@@ -24172,13 +24199,15 @@ local script = G2L["f5"];
 	
 		run(";music " .. id1 .. " , ;pitch 0.0725 , ;volume 10")
 	
-		if not isValid(id1) then
-			run(";sh sound id not valid")
-			run(";music " .. id2 .. " , ;pitch 0.0925 , ;volume 10")
+		if isSoundValid(id1) then
+			return 
+		end
 	
-			if not isValid(id2) then
-				run(";sh 2 sound not valided")
-			end
+		run(";sh sound id not valid")
+		run(";music " .. id2 .. " , ;pitch 0.0925 , ;volume 10")
+	
+		if not isSoundValid(id2) then
+			run(";sh 2 sound not valided")
 		end
 	end)
 end;
@@ -34908,25 +34937,6 @@ local script = G2L["1e2"];
 	
 end;
 task.spawn(C_1e2);
--- StarterGui.NyxesGui.FLUAframe.Loaders.Loader
-local function C_1e4()
-local script = G2L["1e4"];
-	local Players = game:GetService("Players")
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local LocalPlayer = Players.LocalPlayer
-	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
-	
-	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
-	RequestCommand:InvokeServer(";sh loading...")
-	wait("0.3")
-	
-	print("anti crash/hide v1 loading...")
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.1"))()
-	wait("3")
-	print("CustomNotification loading...")
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/CustomNotificator"))()
-end;
-task.spawn(C_1e4);
 -- StarterGui.NyxesGui.FLUAframe.THEME.LocalScript
 local function C_1e6()
 local script = G2L["1e6"];
@@ -35057,5 +35067,17 @@ local script = G2L["1ec"];
 	
 end;
 task.spawn(C_1ec);
+-- StarterGui.NyxesGui.FLUAframe.TP ALL.LocalScript
+local function C_1ee()
+local script = G2L["1ee"];
+	local button = script.Parent
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+	
+	button.MouseButton1Click:Connect(function()
+		RequestCommand:InvokeServer(";tp all me")
+	end)
+end;
+task.spawn(C_1ee);
 
 return G2L["1"], require;
