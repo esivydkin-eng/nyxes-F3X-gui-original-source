@@ -35071,11 +35071,9 @@ task.spawn(C_1ec);
 local function C_1ee()
 local script = G2L["1ee"];
 	local button = script.Parent
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
 	
 	button.MouseButton1Click:Connect(function()
-		RequestCommand:InvokeServer(";tp all me")
+		game:GetService("GuiService"):OpenDevConsole()
 	end)
 end;
 task.spawn(C_1ee);
