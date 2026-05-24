@@ -548,7 +548,8 @@ G2L["34"]["Position"] = UDim2.new(0.00366, 0, 0.44986, 0);
 G2L["35"] = Instance.new("TextButton", G2L["13"]);
 G2L["35"]["TextWrapped"] = true;
 G2L["35"]["BorderSizePixel"] = 2;
-G2L["35"]["TextSize"] = 82;
+G2L["35"]["TextSize"] = 1;
+G2L["35"]["TextScaled"] = true;
 G2L["35"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["35"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["35"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -1118,6 +1119,7 @@ G2L["6a"] = Instance.new("TextButton", G2L["68"]);
 G2L["6a"]["TextWrapped"] = true;
 G2L["6a"]["BorderSizePixel"] = 2;
 G2L["6a"]["TextSize"] = 82;
+G2L["6a"]["TextScaled"] = true;
 G2L["6a"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["6a"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["6a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -1391,6 +1393,7 @@ G2L["84"] = Instance.new("TextButton", G2L["68"]);
 G2L["84"]["TextWrapped"] = true;
 G2L["84"]["BorderSizePixel"] = 2;
 G2L["84"]["TextSize"] = 82;
+G2L["84"]["TextScaled"] = true;
 G2L["84"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["84"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["84"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -1679,6 +1682,7 @@ G2L["9f"] = Instance.new("TextButton", G2L["9e"]);
 G2L["9f"]["TextWrapped"] = true;
 G2L["9f"]["BorderSizePixel"] = 2;
 G2L["9f"]["TextSize"] = 82;
+G2L["9f"]["TextScaled"] = true;
 G2L["9f"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["9f"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["9f"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -1699,6 +1703,7 @@ G2L["a1"] = Instance.new("TextButton", G2L["9e"]);
 G2L["a1"]["TextWrapped"] = true;
 G2L["a1"]["BorderSizePixel"] = 2;
 G2L["a1"]["TextSize"] = 82;
+G2L["a1"]["TextScaled"] = true;
 G2L["a1"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["a1"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["a1"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -2520,6 +2525,7 @@ G2L["ee"] = Instance.new("TextButton", G2L["ec"]);
 G2L["ee"]["TextWrapped"] = true;
 G2L["ee"]["BorderSizePixel"] = 2;
 G2L["ee"]["TextSize"] = 82;
+G2L["ee"]["TextScaled"] = true;
 G2L["ee"]["TextColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["ee"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["ee"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -3694,6 +3700,7 @@ G2L["151"] = Instance.new("TextButton", G2L["131"]);
 G2L["151"]["TextWrapped"] = true;
 G2L["151"]["BorderSizePixel"] = 3;
 G2L["151"]["TextSize"] = 56;
+G2L["151"]["TextScaled"] = true;
 G2L["151"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["151"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["151"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -4320,6 +4327,7 @@ G2L["189"] = Instance.new("TextButton", G2L["16e"]);
 G2L["189"]["TextWrapped"] = true;
 G2L["189"]["BorderSizePixel"] = 3;
 G2L["189"]["TextSize"] = 56;
+G2L["189"]["TextScaled"] = true;
 G2L["189"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["189"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["189"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -4340,6 +4348,7 @@ G2L["18b"] = Instance.new("TextButton", G2L["16e"]);
 G2L["18b"]["TextWrapped"] = true;
 G2L["18b"]["BorderSizePixel"] = 3;
 G2L["18b"]["TextSize"] = 56;
+G2L["18b"]["TextScaled"] = true;
 G2L["18b"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["18b"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["18b"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -4631,6 +4640,7 @@ G2L["1a3"] = Instance.new("TextButton", G2L["18e"]);
 G2L["1a3"]["TextWrapped"] = true;
 G2L["1a3"]["BorderSizePixel"] = 3;
 G2L["1a3"]["TextSize"] = 56;
+G2L["1a3"]["TextScaled"] = true;
 G2L["1a3"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["1a3"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1a3"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -4652,6 +4662,7 @@ G2L["1a5"] = Instance.new("TextButton", G2L["18e"]);
 G2L["1a5"]["TextWrapped"] = true;
 G2L["1a5"]["BorderSizePixel"] = 3;
 G2L["1a5"]["TextSize"] = 56;
+G2L["1a5"]["TextScaled"] = true;
 G2L["1a5"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["1a5"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1a5"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -4907,6 +4918,7 @@ G2L["1b6"] = Instance.new("TextButton", G2L["1a8"]);
 G2L["1b6"]["TextWrapped"] = true;
 G2L["1b6"]["BorderSizePixel"] = 3;
 G2L["1b6"]["TextSize"] = 56;
+G2L["1b6"]["TextScaled"] = true;
 G2L["1b6"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["1b6"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1b6"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -5161,6 +5173,7 @@ G2L["1c6"]["Position"] = UDim2.new(0, 0, 0.00865, 0);
 -- StarterGui.NyxesGui.FLUAframe.holder.XAXAXAXA.XD1
 G2L["1c7"] = Instance.new("TextButton", G2L["1b9"]);
 G2L["1c7"]["TextWrapped"] = true;
+G2L["1c7"]["RichText"] = true;
 G2L["1c7"]["BorderSizePixel"] = 3;
 G2L["1c7"]["TextSize"] = 56;
 G2L["1c7"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
@@ -5182,6 +5195,7 @@ G2L["1c8"] = Instance.new("LocalScript", G2L["1c7"]);
 -- StarterGui.NyxesGui.FLUAframe.holder.XAXAXAXA.XD0
 G2L["1c9"] = Instance.new("TextButton", G2L["1b9"]);
 G2L["1c9"]["TextWrapped"] = true;
+G2L["1c9"]["RichText"] = true;
 G2L["1c9"]["BorderSizePixel"] = 3;
 G2L["1c9"]["TextSize"] = 56;
 G2L["1c9"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
@@ -5439,6 +5453,7 @@ G2L["1da"] = Instance.new("TextButton", G2L["1cc"]);
 G2L["1da"]["TextWrapped"] = true;
 G2L["1da"]["BorderSizePixel"] = 3;
 G2L["1da"]["TextSize"] = 56;
+G2L["1da"]["TextScaled"] = true;
 G2L["1da"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["1da"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1da"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -5460,6 +5475,7 @@ G2L["1dc"] = Instance.new("TextButton", G2L["1cc"]);
 G2L["1dc"]["TextWrapped"] = true;
 G2L["1dc"]["BorderSizePixel"] = 3;
 G2L["1dc"]["TextSize"] = 56;
+G2L["1dc"]["TextScaled"] = true;
 G2L["1dc"]["TextColor3"] = Color3.fromRGB(0, 0, 128);
 G2L["1dc"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1dc"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -5540,9 +5556,7 @@ G2L["1e3"]["Name"] = [[Loaders]];
 
 -- StarterGui.NyxesGui.FLUAframe.Loaders.Loader
 G2L["1e4"] = Instance.new("LocalScript", G2L["1e3"]);
-G2L["1e4"]["Enabled"] = false;
 G2L["1e4"]["Name"] = [[Loader]];
-G2L["1e4"]["Disabled"] = true;
 
 
 -- StarterGui.NyxesGui.FLUAframe.THEME
@@ -34937,6 +34951,25 @@ local script = G2L["1e2"];
 	
 end;
 task.spawn(C_1e2);
+-- StarterGui.NyxesGui.FLUAframe.Loaders.Loader
+local function C_1e4()
+local script = G2L["1e4"];
+	local Players = game:GetService("Players")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local LocalPlayer = Players.LocalPlayer
+	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+	
+	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+	RequestCommand:InvokeServer(";sh loading...")
+	wait("0.3")
+	
+	print("anti crash/hide v1 loading...")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.1"))()
+	wait("3")
+	print("CustomNotification loading...")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/CustomNotificator"))()
+end;
+task.spawn(C_1e4);
 -- StarterGui.NyxesGui.FLUAframe.THEME.LocalScript
 local function C_1e6()
 local script = G2L["1e6"];
