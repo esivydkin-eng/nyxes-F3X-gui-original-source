@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 498 | Scripts: 196 | Modules: 0 | Tags: 0
+-- Instances: 502 | Scripts: 198 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.NyxesGui
@@ -5702,6 +5702,49 @@ G2L["1f1"]["Position"] = UDim2.new(0.49432, 0, 0.19538, 0);
 
 -- StarterGui.NyxesGui.FLUAframe.TP ALL.LocalScript
 G2L["1f2"] = Instance.new("LocalScript", G2L["1f1"]);
+
+
+
+-- StarterGui.NyxesGui.FLUAframe.FPS
+G2L["1f3"] = Instance.new("TextLabel", G2L["2"]);
+G2L["1f3"]["TextWrapped"] = true;
+G2L["1f3"]["TextSize"] = 14;
+G2L["1f3"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1f3"]["TextScaled"] = true;
+G2L["1f3"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1f3"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1f3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1f3"]["BackgroundTransparency"] = 0.45;
+G2L["1f3"]["Size"] = UDim2.new(0.08712, 0, 0.06092, 0);
+G2L["1f3"]["BorderColor3"] = Color3.fromRGB(7, 11, 255);
+G2L["1f3"]["Text"] = [[FPS:XYU]];
+G2L["1f3"]["Name"] = [[FPS]];
+G2L["1f3"]["Position"] = UDim2.new(0.5947, 0, 0.20168, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.FPS.LocalScript
+G2L["1f4"] = Instance.new("LocalScript", G2L["1f3"]);
+
+
+
+-- StarterGui.NyxesGui.FLUAframe.PING
+G2L["1f5"] = Instance.new("TextLabel", G2L["2"]);
+G2L["1f5"]["TextWrapped"] = true;
+G2L["1f5"]["TextSize"] = 14;
+G2L["1f5"]["TextScaled"] = true;
+G2L["1f5"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1f5"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["1f5"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["1f5"]["BackgroundTransparency"] = 0.45;
+G2L["1f5"]["Size"] = UDim2.new(0.08712, 0, 0.06092, 0);
+G2L["1f5"]["BorderColor3"] = Color3.fromRGB(7, 11, 255);
+G2L["1f5"]["Text"] = [[PING:PIZDA]];
+G2L["1f5"]["Name"] = [[PING]];
+G2L["1f5"]["Position"] = UDim2.new(0.69532, 0, 0.20168, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.PING.LocalScript
+G2L["1f6"] = Instance.new("LocalScript", G2L["1f5"]);
 
 
 
@@ -35241,5 +35284,42 @@ local script = G2L["1f2"];
 	end)
 end;
 task.spawn(C_1f2);
+-- StarterGui.NyxesGui.FLUAframe.FPS.LocalScript
+local function C_1f4()
+local script = G2L["1f4"];
+	local RunService = game:GetService("RunService")
+	local label = script.Parent
+	
+	local fps = 0
+	local elapsed = 0
+	local frames = 0
+	
+	RunService.Heartbeat:Connect(function(dt)
+		frames = frames + 1
+		elapsed = elapsed + dt
+		if elapsed >= 0.5 then
+			fps = math.floor(frames / elapsed)
+			label.Text = "FPS:" .. fps
+			frames = 0
+			elapsed = 0
+		end
+	end)
+end;
+task.spawn(C_1f4);
+-- StarterGui.NyxesGui.FLUAframe.PING.LocalScript
+local function C_1f6()
+local script = G2L["1f6"];
+	local Players = game:GetService("Players")
+	local Stats = game:GetService("Stats")
+	local player = Players.LocalPlayer
+	local label = script.Parent
+	
+	while true do
+		local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+		label.Text = "PING:" .. ping
+		task.wait(0.5)
+	end
+end;
+task.spawn(C_1f6);
 
 return G2L["1"], require;
