@@ -35091,7 +35091,7 @@ local script = G2L["1e8"];
 	wait("0.3")
 	
 	print("anti crash/hide v1 loading...")
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.1"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.2%20FIX"))()
 	wait("3")
 	print("CustomNotification loading...")
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/CustomNotificator"))()
