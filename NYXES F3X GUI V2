@@ -7,7 +7,7 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 515 | Scripts: 199 | Modules: 0 | Tags: 0
+-- Instances: 526 | Scripts: 199 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.NyxesGui
@@ -22,7 +22,7 @@ G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["BorderSizePixel"] = 6;
 G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["2"]["Size"] = UDim2.new(0.27586, 0, 0.60025, 0);
-G2L["2"]["Position"] = UDim2.new(0.22183, 0, 0.19924, 0);
+G2L["2"]["Position"] = UDim2.new(0.29173, 0, 0.19924, 0);
 G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 255);
 G2L["2"]["Name"] = [[FLUAframe]];
 G2L["2"]["BackgroundTransparency"] = 0.25;
@@ -5932,6 +5932,169 @@ G2L["202"]["Position"] = UDim2.new(0.69532, 0, 0.20168, 0);
 -- StarterGui.NyxesGui.FLUAframe.PING.LocalScript
 G2L["203"] = Instance.new("LocalScript", G2L["202"]);
 
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts
+G2L["204"] = Instance.new("Frame", G2L["2"]);
+G2L["204"]["Visible"] = false;
+G2L["204"]["BorderSizePixel"] = 0;
+G2L["204"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["204"]["Size"] = UDim2.new(0.69188, 0, 0.28151, 0);
+G2L["204"]["Position"] = UDim2.new(-0.70419, 0, 0.72689, 0);
+G2L["204"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["204"]["Name"] = [[CloudsGuisAndScripts]];
+G2L["204"]["BackgroundTransparency"] = 1;
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1
+G2L["205"] = Instance.new("Frame", G2L["204"]);
+G2L["205"]["Visible"] = false;
+G2L["205"]["BackgroundColor3"] = Color3.fromRGB(132, 132, 132);
+G2L["205"]["Size"] = UDim2.new(0.91892, 0, 0.99254, 0);
+G2L["205"]["Position"] = UDim2.new(0, 0, 0.00746, 0);
+G2L["205"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["205"]["Name"] = [[PC1]];
+G2L["205"]["BackgroundTransparency"] = 0.7;
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.TextLabel
+G2L["206"] = Instance.new("TextLabel", G2L["205"]);
+G2L["206"]["TextWrapped"] = true;
+G2L["206"]["TextSize"] = 14;
+G2L["206"]["TextScaled"] = true;
+G2L["206"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["206"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["206"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["206"]["BackgroundTransparency"] = 0.75;
+G2L["206"]["Size"] = UDim2.new(1, 0, 0.20301, 0);
+G2L["206"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["206"]["Text"] = [[F3X EXPLOITS]];
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.l1
+G2L["207"] = Instance.new("TextButton", G2L["205"]);
+G2L["207"]["TextWrapped"] = true;
+G2L["207"]["TextSize"] = 14;
+G2L["207"]["TextScaled"] = true;
+G2L["207"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["207"]["BackgroundColor3"] = Color3.fromRGB(139, 139, 139);
+G2L["207"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["207"]["Size"] = UDim2.new(0.34454, 0, 0.25564, 0);
+G2L["207"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["207"]["Text"] = [[LuaHammerF3X BY ME]];
+G2L["207"]["Name"] = [[l1]];
+G2L["207"]["Position"] = UDim2.new(0.02521, 0, 0.2406, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.u2
+G2L["208"] = Instance.new("TextButton", G2L["205"]);
+G2L["208"]["TextWrapped"] = true;
+G2L["208"]["TextSize"] = 14;
+G2L["208"]["TextScaled"] = true;
+G2L["208"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["208"]["BackgroundColor3"] = Color3.fromRGB(139, 139, 139);
+G2L["208"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["208"]["Size"] = UDim2.new(0.30672, 0, 0.25564, 0);
+G2L["208"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["208"]["Text"] = [[MrBeanADMINF3X cloud Save Version]];
+G2L["208"]["Name"] = [[u2]];
+G2L["208"]["Position"] = UDim2.new(0.39496, 0, 0.2406, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.a3
+G2L["209"] = Instance.new("TextButton", G2L["205"]);
+G2L["209"]["TextWrapped"] = true;
+G2L["209"]["TextSize"] = 15;
+G2L["209"]["TextScaled"] = true;
+G2L["209"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["209"]["BackgroundColor3"] = Color3.fromRGB(139, 139, 139);
+G2L["209"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["209"]["Size"] = UDim2.new(0.26471, 0, 0.25564, 0);
+G2L["209"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["209"]["Text"] = [[Harked V2 F3X BY ME]];
+G2L["209"]["Name"] = [[a3]];
+G2L["209"]["Position"] = UDim2.new(0.73529, 0, 0.2406, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.TextLabel
+G2L["20a"] = Instance.new("TextLabel", G2L["205"]);
+G2L["20a"]["TextWrapped"] = true;
+G2L["20a"]["TextSize"] = 14;
+G2L["20a"]["TextScaled"] = true;
+G2L["20a"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["20a"]["BackgroundTransparency"] = 0.75;
+G2L["20a"]["Size"] = UDim2.new(0.13866, 0, 0.20301, 0);
+G2L["20a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20a"]["Text"] = [[P1]];
+G2L["20a"]["Position"] = UDim2.new(0, 0, 0.79699, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.pred
+G2L["20b"] = Instance.new("TextButton", G2L["205"]);
+G2L["20b"]["TextWrapped"] = true;
+G2L["20b"]["TextSize"] = 14;
+G2L["20b"]["TextScaled"] = true;
+G2L["20b"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20b"]["BackgroundColor3"] = Color3.fromRGB(119, 119, 119);
+G2L["20b"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20b"]["Size"] = UDim2.new(0.38235, 0, 0.25564, 0);
+G2L["20b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20b"]["Text"] = [[>]];
+G2L["20b"]["Name"] = [[pred]];
+G2L["20b"]["Rotation"] = 180;
+G2L["20b"]["Position"] = UDim2.new(0.17227, 0, 0.61654, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.next
+G2L["20c"] = Instance.new("TextButton", G2L["205"]);
+G2L["20c"]["TextWrapped"] = true;
+G2L["20c"]["TextSize"] = 14;
+G2L["20c"]["TextScaled"] = true;
+G2L["20c"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20c"]["BackgroundColor3"] = Color3.fromRGB(119, 119, 119);
+G2L["20c"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20c"]["Size"] = UDim2.new(0.38235, 0, 0.25564, 0);
+G2L["20c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20c"]["Text"] = [[>]];
+G2L["20c"]["Name"] = [[next]];
+G2L["20c"]["Position"] = UDim2.new(0.59244, 0, 0.61654, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CloudsGuisAndScripts.PC1.clsXPSD
+G2L["20d"] = Instance.new("TextButton", G2L["205"]);
+G2L["20d"]["TextWrapped"] = true;
+G2L["20d"]["BorderSizePixel"] = 0;
+G2L["20d"]["TextSize"] = 14;
+G2L["20d"]["TextScaled"] = true;
+G2L["20d"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20d"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20d"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20d"]["BackgroundTransparency"] = 0.55;
+G2L["20d"]["Size"] = UDim2.new(0.12605, 0, 0.80451, 0);
+G2L["20d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20d"]["Text"] = [[>]];
+G2L["20d"]["Name"] = [[clsXPSD]];
+G2L["20d"]["Position"] = UDim2.new(-0.15126, 0, 0.09023, 0);
+
+
+-- StarterGui.NyxesGui.FLUAframe.CCXD5
+G2L["20e"] = Instance.new("TextButton", G2L["2"]);
+G2L["20e"]["TextWrapped"] = true;
+G2L["20e"]["BorderSizePixel"] = 0;
+G2L["20e"]["TextSize"] = 14;
+G2L["20e"]["TextScaled"] = true;
+G2L["20e"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20e"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20e"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["20e"]["BackgroundTransparency"] = 0.8;
+G2L["20e"]["Size"] = UDim2.new(0.05343, 0, 0.15756, 0);
+G2L["20e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["20e"]["Text"] = [[>]];
+G2L["20e"]["Name"] = [[CCXD5]];
+G2L["20e"]["Rotation"] = 180;
+G2L["20e"]["Position"] = UDim2.new(-0.06935, 0, 0.85073, 0);
 
 
 -- StarterGui.NyxesGui.FLUAframe.drag
@@ -28632,8 +28795,10 @@ local script = G2L["1f5"];
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local LocalPlayer = Players.LocalPlayer
 	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
-	
 	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+	
+	if PlayerGui:FindFirstChild("ANTI") then return end
+	
 	RequestCommand:InvokeServer(";sh loading...")
 	wait("0.3")
 	
@@ -28820,106 +28985,159 @@ local script = G2L["1f5"];
 		end
 	end)
 	--luau limited bypass
-	local parent = script.Parent.Parent.paggssLOLO.P1
+	local root = script.Parent.Parent
 	
 	local actions = {
-		["SKBXGLITCH"] = function()
-			local P, W = game:GetService("Players"), game:GetService("Workspace")
-			local RS = game:GetService("ReplicatedStorage")
-			local RunService = game:GetService("RunService")
-			local lp = P.LocalPlayer
+		{
+			parent = "CloudsGuisAndScripts/PC1",
+			button = "a3",
+			action = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/Harked%20V2%20F3X"))()
+			end,
+		},
+		{
+			parent = "CloudsGuisAndScripts/PC1",
+			button = "u2",
+			action = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/MrBeanF3XCloud"))()
+			end,
+		},
+		{
+			parent = "CloudsGuisAndScripts/PC1",
+			button = "l1",
+			action = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/Lua%20Hammer%20F3X"))()
+			end,
+		},
+		{
+			parent = "CloudsGuisAndScripts/PC1",
+			button = "clsXPSD",
+			action = function()
+				root.CloudsGuisAndScripts.Visible = false
+				root.CloudsGuisAndScripts.PC1.Visible = false
+				root.CCXD5.Visible = true
+			end,
+		},
+		{
+			parent = "",
+			button = "CCXD5",
+			action = function(btn)
+					root.CloudsGuisAndScripts.Visible = true
+					root.CloudsGuisAndScripts.PC1.Visible = true
+					btn.Visible = false
+			end,
+		},
+		{
+			parent = "paggssLOLO/P1",
+			button = "SKBXGLITCH",
+			action = function()
+				local P, W = game:GetService("Players"), game:GetService("Workspace")
+				local RS = game:GetService("ReplicatedStorage")
+				local RunService = game:GetService("RunService")
+				local lp = P.LocalPlayer
 	
-			RS:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification:InvokeServer(";btools")
+				RS:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification:InvokeServer(";btools")
 	
-			local tool
-			while not tool do
-				tool = lp.Backpack:FindFirstChild("SyncAPI") or (lp.Character and lp.Character:FindFirstChild("SyncAPI"))
-				if not tool then
-					for _, v in ipairs(lp.Backpack:GetChildren()) do if v:FindFirstChild("SyncAPI") then tool = v break end end
-					if not tool and lp.Character then for _, v in ipairs(lp.Character:GetChildren()) do if v:FindFirstChild("SyncAPI") then tool = v break end end end
+				local tool
+				while not tool do
+					tool = lp.Backpack:FindFirstChild("SyncAPI") or (lp.Character and lp.Character:FindFirstChild("SyncAPI"))
+					if not tool then
+						for _, v in ipairs(lp.Backpack:GetChildren()) do if v:FindFirstChild("SyncAPI") then tool = v break end end
+						if not tool and lp.Character then for _, v in ipairs(lp.Character:GetChildren()) do if v:FindFirstChild("SyncAPI") then tool = v break end end end
+					end
+					task.wait(0.1)
 				end
-				task.wait(0.1)
-			end
 	
-			local r = tool.SyncAPI.ServerEndpoint
-			local hrp = lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")
-			if not hrp then return end
+				local r = tool.SyncAPI.ServerEndpoint
+				local hrp = lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")
+				if not hrp then return end
 	
-			local targetScale = Vector3.new(7200, 7200, 7200)
-			for _, v in ipairs(W:GetDescendants()) do
-				if v:IsA("SpecialMesh") or v:IsA("FileMesh") then
-					local s = v.Scale
-					if s.X <= 7200 and s.X >= 3000 and s.Y <= 7200 and s.Y >= 3000 and s.Z <= 7200 and s.Z >= 3000 then
-						local newScale = Vector3.new(s.X - 5, s.Y - 5, s.Z - 5)
-						if newScale.X < targetScale.X then targetScale = newScale end
+				local targetScale = Vector3.new(7200, 7200, 7200)
+				for _, v in ipairs(W:GetDescendants()) do
+					if v:IsA("SpecialMesh") or v:IsA("FileMesh") then
+						local s = v.Scale
+						if s.X <= 7200 and s.X >= 3000 and s.Y <= 7200 and s.Y >= 3000 and s.Z <= 7200 and s.Z >= 3000 then
+							local newScale = Vector3.new(s.X - 5, s.Y - 5, s.Z - 5)
+							if newScale.X < targetScale.X then targetScale = newScale end
+						end
 					end
 				end
-			end
 	
-			local success, res = pcall(function()
-				return r:InvokeServer("CreatePart", "Normal", CFrame.new(hrp.Position + Vector3.new(0, 6, 0)), W)
-			end)
+				local success, res = pcall(function()
+					return r:InvokeServer("CreatePart", "Normal", CFrame.new(hrp.Position + Vector3.new(0, 6, 0)), W)
+				end)
 	
-			if success and res then
-				local p = typeof(res) == "Instance" and res or (typeof(res) == "table" and res[1])
-				if p then
-					r:InvokeServer("SetName", {p}, "NyxesSKB")
-					r:InvokeServer("CreateMeshes", {{Part = p}})
-					r:InvokeServer("SyncMesh", {{
-						Part = p,
-						MeshId = "rbxassetid://111891702759441",
-						TextureId = "rbxassetid://103668058702079",
-						Scale = targetScale
-					}})
-					r:InvokeServer("SetLocked", {p}, true)
+				if success and res then
+					local p = typeof(res) == "Instance" and res or (typeof(res) == "table" and res[1])
+					if p then
+						r:InvokeServer("SetName", {p}, "NyxesSKB")
+						r:InvokeServer("CreateMeshes", {{Part = p}})
+						r:InvokeServer("SyncMesh", {{
+							Part = p,
+							MeshId = "rbxassetid://111891702759441",
+							TextureId = "rbxassetid://103668058702079",
+							Scale = targetScale
+						}})
+						r:InvokeServer("SetLocked", {p}, true)
 	
-					local hue       = 0
-					local angle     = 0
-					local basePos   = p.Position
+						local hue   = 0
+						local angle = 0
+						local basePos = p.Position
 	
-					RunService.Heartbeat:Connect(function(dt)
-						if not p or not p.Parent then return end
+						RunService.Heartbeat:Connect(function(dt)
+							if not p or not p.Parent then return end
 	
-						angle = angle + math.random(120, 360)
-						if angle >= 360 then angle = angle % 360 end
+							angle = angle + math.random(120, 360)
+							if angle >= 360 then angle = angle % 360 end
 	
-						local rad = math.rad(angle)
-						local cf  = CFrame.new(basePos)
-							* CFrame.Angles(
-								math.random() * math.pi * 2,
-								rad,
-								math.random() * math.pi * 2
-							)
+							local rad = math.rad(angle)
+							local cf  = CFrame.new(basePos)
+								* CFrame.Angles(
+									math.random() * math.pi * 2,
+									rad,
+									math.random() * math.pi * 2
+								)
 	
-						pcall(function()
-							r:InvokeServer("SyncMove", {{Part = p, CFrame = cf}})
+							pcall(function()
+								r:InvokeServer("SyncMove", {{Part = p, CFrame = cf}})
+							end)
+	
+							hue = hue + 0.15
+							if hue >= 1 then hue = 0 end
+							local color  = Color3.fromHSV(hue, 1, 1)
+							local vColor = Vector3.new(color.R, color.G, color.B)
+	
+							pcall(function()
+								r:InvokeServer("SyncMesh", {{Part = p, VertexColor = vColor}})
+							end)
 						end)
-	
-						hue = hue + 0.15
-						if hue >= 1 then hue = 0 end
-						local color  = Color3.fromHSV(hue, 1, 1)
-						local vColor = Vector3.new(color.R, color.G, color.B)
-	
-						pcall(function()
-							r:InvokeServer("SyncMesh", {{Part = p, VertexColor = vColor}})
-						end)
-					end)
+					end
 				end
-			end
-		end
+			end,
+		},
 	}
 	
-	for path, func in pairs(actions) do
-		local current = parent
-		local parts = string.split(path, "/")
-	
-		for i = 1, #parts - 1 do
-			current = current:WaitForChild(parts[i])
+	local function resolvePath(from, path)
+		local cur = from
+		for part in path:gmatch("[^/]+") do
+			cur = cur:WaitForChild(part)
 		end
-	
-		local button = current:WaitForChild(parts[#parts])
-		button.MouseButton1Click:Connect(func)
+		return cur
 	end
+	
+	for _, entry in ipairs(actions) do
+		task.spawn(function()
+			local parentObj = entry.parent ~= "" and resolvePath(root, entry.parent) or root
+			local btn = parentObj:WaitForChild(entry.button)
+			local ok, err = pcall(function()
+				btn.MouseButton1Click:Connect(function()
+					entry.action(btn)
+				end)
+			end)
+			if not ok then warn("[Actions] " .. entry.button .. ": " .. tostring(err)) end
+		end)
+	end
+	--Merged
 end;
 task.spawn(C_1f5);
 -- StarterGui.NyxesGui.FLUAframe.THEME.LocalScript
