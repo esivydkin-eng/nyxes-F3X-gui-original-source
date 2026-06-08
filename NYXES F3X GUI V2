@@ -28939,7 +28939,7 @@ local script = G2L["1ef"];
 	
 	RequestCommand:InvokeServer(";sh loading...")
 	task.wait("0.02")
-	print("anti crash/hide v1 loading...")
+	print("anti crash/hide loading...")
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.5%20FIX"))()
 	task.wait("0.02")
 	print("CustomNotification loading...")
