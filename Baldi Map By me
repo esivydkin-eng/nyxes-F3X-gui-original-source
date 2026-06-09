@@ -75641,4 +75641,4 @@ end
 
 RequestCommand:InvokeServer(";res all")
 task.wait(0.2)
-RequestCommand:InvokeServer(";r6 all")
+RequestCommand:InvokeServer(";r6 all , ;music 130137195482951 , ;pitch 0.1 , ;volume 10")
