@@ -1,0 +1,193 @@
+--loader
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
+
+if PlayerGui:FindFirstChild("ANTI") then return end
+
+RequestCommand:InvokeServer(";sh loading...")
+task.wait("0.02")
+print("anti crash/hide loading...")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/AntiH.C%20V1.5%20FIX"))()
+task.wait("0.02")
+print("CustomNotification loading...")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/esivydkin-eng/nyxes-F3X-gui-original-source/refs/heads/main/CustomNotificator"))()
+--2stepsecureinit
+wait("0.01")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+
+local NOTICER_TIMEOUT   = 10
+local CONTAINER_TIMEOUT = 12
+local CHECK_INTERVAL    = 1
+
+local noticerTimestamps   = {}
+local containerTimestamps = {}
+
+local function getNoticerId(name)
+	local id = name:match("^Noticer_(%d+)$")
+	return id and tonumber(id) or nil
+end
+
+local animRunning    = false
+local animConnection = nil
+
+local function startColorAnim(textBox)
+	if animRunning then return end
+	animRunning = true
+
+	local val   = 0
+	local dir   = 1
+	local speed = 1.4
+
+	animConnection = RunService.Heartbeat:Connect(function(dt)
+		if not textBox or not textBox.Parent then
+			animRunning = false
+			if animConnection then animConnection:Disconnect() end
+			animConnection = nil
+			return
+		end
+
+		val = val + dir * speed * (dt / 0.016)
+		if val >= 255 then val = 255 dir = -1
+		elseif val <= 0 then val = 0 dir = 1 end
+
+		local col = Color3.fromRGB(val, val, val)
+		textBox.TextColor3        = col
+		textBox.PlaceholderColor3 = col
+	end)
+end
+
+local function stopColorAnim(textBox)
+	if animConnection then
+		animConnection:Disconnect()
+		animConnection = nil
+	end
+	animRunning = false
+	if textBox and textBox.Parent then
+		textBox.TextColor3        = Color3.fromRGB(255, 255, 255)
+		textBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+	end
+end
+
+local function getTargetTextBox()
+	local hd = player.PlayerGui:FindFirstChild("HDAdminInterface")
+	if not hd then return nil end
+	local cmdBar = hd:FindFirstChild("CmdBar")
+	if not cmdBar then return nil end
+	local sf = cmdBar:FindFirstChild("SearchFrame")
+	if not sf then return nil end
+	return sf:FindFirstChild("TextBox")
+end
+
+local function waitForGui(parent, name)
+	local found = parent:FindFirstChild(name)
+	if found then return found end
+	print("[Cleaner] Waiting for " .. name .. "...")
+	found = parent:WaitForChild(name)
+	print("[Cleaner] Found " .. name)
+	return found
+end
+
+local anti     = waitForGui(player.PlayerGui, "ANTI")
+local customGui = waitForGui(player.PlayerGui, "Custom")
+
+local hdInterface = waitForGui(player.PlayerGui, "HDAdminInterface")
+local cmdBar      = waitForGui(hdInterface,      "CmdBar")
+local searchFrame = waitForGui(cmdBar,           "SearchFrame")
+local textBox     = waitForGui(searchFrame,      "TextBox")
+
+print("[Cleaner] All targets found — starting")
+
+startColorAnim(textBox)
+
+task.spawn(function()
+	while true do
+		task.wait(CHECK_INTERVAL)
+
+		local now = tick()
+
+		if anti and anti.Parent then
+			for _, child in ipairs(anti:GetChildren()) do
+				if child:IsA("Frame") then
+					local id = getNoticerId(child.Name)
+					if id then
+						if not noticerTimestamps[id] then
+							noticerTimestamps[id] = now
+						else
+							local age = now - noticerTimestamps[id]
+							if age >= NOTICER_TIMEOUT then
+								child:Destroy()
+								noticerTimestamps[id] = nil
+								print(string.format("[Cleaner] Removed stuck Noticer frame: Noticer_%d (was stuck for %.1fs)", id, age))
+							end
+						end
+					end
+				end
+			end
+
+			for id in pairs(noticerTimestamps) do
+				local found = false
+				for _, child in ipairs(anti:GetChildren()) do
+					if child.Name == "Noticer_" .. id then
+						found = true
+						break
+					end
+				end
+				if not found then
+					noticerTimestamps[id] = nil
+				end
+			end
+		end
+
+		if customGui and customGui.Parent then
+			local container = customGui:FindFirstChild("Container")
+			if container then
+				for _, frame in ipairs(container:GetChildren()) do
+					if frame:IsA("Frame") then
+						local key = frame.Name .. "_" .. tostring(frame)
+						if not containerTimestamps[key] then
+							containerTimestamps[key] = now
+						else
+							local age = now - containerTimestamps[key]
+							if age >= CONTAINER_TIMEOUT then
+								local name = frame.Name
+								frame:Destroy()
+								containerTimestamps[key] = nil
+								print(string.format("[Cleaner] Removed stuck Container frame: '%s' (was stuck for %.1fs)", name, age))
+							end
+						end
+					end
+				end
+
+				for key in pairs(containerTimestamps) do
+					local still = false
+					for _, frame in ipairs(container:GetChildren()) do
+						if (frame.Name .. "_" .. tostring(frame)) == key then
+							still = true
+							break
+						end
+					end
+					if not still then
+						containerTimestamps[key] = nil
+					end
+				end
+			end
+		end
+
+		local tb = getTargetTextBox()
+		if tb then
+			if not animRunning then
+				print("[Cleaner] TextBox colour animation missing — restarting")
+				startColorAnim(tb)
+			end
+		else
+			if animRunning then
+				stopColorAnim(nil)
+			end
+		end
+	end
+end)
