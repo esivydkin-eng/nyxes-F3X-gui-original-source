@@ -6590,8 +6590,8 @@ local script = G2L["f"];
 	local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandModification
 	
 	button.MouseButton1Click:Connect(function()
-		RequestCommand:InvokeServer(";music 75288652173301")
-		RequestCommand:InvokeServer(";pitch 0.047")
+		RequestCommand:InvokeServer(";music 1840712882")
+		RequestCommand:InvokeServer(";pitch 1.2")
 		RequestCommand:InvokeServer(";volume 10")
 	end)
 end;
