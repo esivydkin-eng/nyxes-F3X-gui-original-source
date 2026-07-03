@@ -1,4 +1,4 @@
---Say Mango Skid!
+--Say Mango Skid! This Fuc#ing script by nyxes 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 
