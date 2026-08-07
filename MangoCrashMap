@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RequestCommand = ReplicatedStorage:WaitForChild("HDAdminHDClient").Signals.RequestCommandSilent
 
 RequestCommand:InvokeServer(";btools me")
+RequestCommand:InvokeServer(";punish all")
 task.wait(0.18)
 
 local player = game.Players.LocalPlayer
